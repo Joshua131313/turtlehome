@@ -1,0 +1,41 @@
+.dropdown {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  padding-right: 40px;
+  gap: 10px;
+  width: auto;
+  right: 0;
+}
+
+.dropdown .dropoption {
+  display: flex;
+  font-size: 11px;
+  justify-content: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  align-items: center
+}
+.dropoption:hover span {
+  color: var(--theme-color)
+}
+.dropoption i {
+  width: 10px;
+  display: flex;
+  color: var(--theme-color);
+  justify-content: center
+}
+.dropdown {
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none
+}
+.activedrop .dropdown {
+  opacity: 1;
+  pointer-events: initial
+}

@@ -1,0 +1,5 @@
+.layout {
+   top: var(--nav-height);
+   height: calc(100vh - var(--nav-height));
+   padding: 40px;
+}

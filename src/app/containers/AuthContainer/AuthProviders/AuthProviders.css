@@ -1,0 +1,53 @@
+
+.authproviders {
+  display: flex;
+  gap: 10px;
+}
+.authproviders > * {
+  width: 100%;
+}
+.googlebtn{
+  background-color: #eee;
+  border-radius: 40px;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  height: 50px;
+}
+.facebookbtn {
+  color: #1877f2;
+  font-size: 11px;
+}
+.googlebtn:active {
+  transform: scale(0.98)
+}
+.googlebtn:hover {
+  background-color: rgb(243, 243, 243)
+}
+.facebookbtn:hover {
+}
+.googlebtn span {
+  font-size: 13px
+}
+.googlebtn img {
+  width: 25px;
+  height: 25px
+}
+@media (max-width: 720px) {
+  .authproviders {
+    flex-direction: column;
+  }
+}
+@media (max-width: 550px) {
+  .formbtns {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .formbtns button {
+    width: 100%;
+  }
+}

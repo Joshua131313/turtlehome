@@ -1,0 +1,31 @@
+:root {
+  --btn-width: 140px
+}
+.appbtn {
+  background-color: var(--theme-color);
+  color: #fff;
+  padding: 6px 10px;
+  transition: all 0.3s;
+  font-size: 13px;
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+}
+.appbtn:hover {
+}
+.appbtn:active {
+  transform: scale(var(--scale-factor));
+}
+.appbtn.border {
+  background-color: #fff;
+  color: var(--theme-color);
+  border: solid 1px;
+}
+.appbtn.border:hover {
+  background-color: var(--theme-color);
+  color: #fff;
+  border: solid 1px transparent
+}

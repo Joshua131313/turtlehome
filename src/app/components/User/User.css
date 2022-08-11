@@ -1,0 +1,50 @@
+ .user .imgloaded {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.namemsg {
+  gap: 1px;
+  margin-left: 10px;
+}
+ .namemsg a {
+  color: var(--gray-text);
+  font-weight: bold;
+}
+.namemsg a:hover {
+  color: var(--theme-color);
+  text-decoration: underline;
+}
+.user .namemsg span {
+  font-size: 13px;
+}
+.groupimgs {
+  width: 50px;
+  height: 50px;
+}
+.groupimgs .imgloaded {
+  position: absolute;
+}
+#root .groupimgs .imgloaded {
+  width: calc(40px);
+  height: calc(40px);
+}
+.groupimgs .imgloaded:first-of-type {
+  right: 0
+}
+.groupimgs .imgloaded:nth-of-type(2) {
+  bottom: -5px;
+  left: -5px;
+}
+.usericonplaceholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+}
+.usericonplaceholder i {
+  font-size: 22px
+}
+.dropusers .usericonplaceholder i {
+  font-size: 16px
+}

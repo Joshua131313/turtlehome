@@ -1,0 +1,10 @@
+.appicon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme-bg);
+  border-radius: 50%;
+  box-shadow: var(--light-shadow);
+}

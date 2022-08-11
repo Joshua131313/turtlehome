@@ -1,0 +1,27 @@
+.rskeletonimg {
+  animation: skeleton 2.2s infinite;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(238, 238, 238);
+}
+.imgloaded  {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #eee;
+}
+.imgloaded img {
+  width: 100%;
+  height: 100%;
+}
+@keyframes skeleton {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1
+  }
+}

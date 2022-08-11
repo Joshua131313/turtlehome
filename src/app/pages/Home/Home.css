@@ -1,0 +1,7 @@
+.appcontent {
+    top: var(--nav-height);
+    padding: 20px;
+    height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+    padding-top: 0;
+}
