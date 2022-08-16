@@ -319,9 +319,10 @@ details[open] > summary {
   height: 100%;
 }
 .home {
-  display: grid;
-  grid-template-columns: 200px 1fr;
   min-height: 100vh;
+  display: grid;
+  background-color: var(--theme-bg);
+  grid-template-rows: var(--nav-height) 1fr;  
 }
 .appicon {
   width: 30px;
@@ -333,4 +334,14 @@ details[open] > summary {
   color: var(--theme-color);
   transition: all 0.3s;
   border-radius: 50%;
+}
+
+.titlebar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  color: var(--theme-color);
+}
+.notification  {
+  border-radius: 10px !important;
 }

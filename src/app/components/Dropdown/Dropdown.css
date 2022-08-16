@@ -6,8 +6,7 @@
   flex-direction: column;
   background-color: #fff;
   border-radius: 10px;
-  padding: 10px;
-  padding-right: 40px;
+  padding: 10px 15px;
   gap: 10px;
   width: auto;
   right: 0;
@@ -15,10 +14,11 @@
 
 .dropdown .dropoption {
   display: flex;
-  font-size: 11px;
+  font-size: 14px;
   justify-content: flex-start;
   gap: 10px;
   cursor: pointer;
+  color: var(--gray-text);
   align-items: center
 }
 .dropoption:hover span {

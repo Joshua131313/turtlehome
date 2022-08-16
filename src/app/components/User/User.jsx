@@ -5,12 +5,13 @@ import ImgLoaded from '../Imgloaded/Imgloaded'
 import './User.css' 
 
 export const User = (props) => {
-  
+  const {showName= true, isLink} = props
   const {userinfo} = useContext(StoreContext)
-
+  let El = isLink ? Link : 'div'
   return (
-    <Link to='/settings/' className="user" >
+    <El to='/settings/' className="user flexrow ac" >
       <ImgLoaded img={userinfo?.userinfo?.profilePic}/>
-    </Link>
+     {showName &&  <span>{userinfo.name}</span>}
+    </El>
   )
 }

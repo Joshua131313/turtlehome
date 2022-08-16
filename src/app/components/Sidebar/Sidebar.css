@@ -1,0 +1,97 @@
+.gridlayout > div {
+    max-height: calc(100vh - var(--nav-height) - 40px);
+    background-color: transparent;
+}
+.sidebar {
+    overflow-y: auto;
+}
+.sidebar > div {
+}
+.sidebarlinksrow {
+    gap: 10px;
+    overflow-y: auto;
+
+}
+.sidebarlink {
+    width: 100%;
+    padding: 12px 10px;
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+    border-radius: 10px;
+    color: var(--gray-text);
+}
+.sidebarlink i {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--theme-color);
+    box-shadow: var(--light-shadow);
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+.sidebarlink:hover, .activelink {
+    background-color: var(--theme-bg);
+    color: var(--theme-color);
+    box-shadow: inset var(--light-shadow);
+}
+.sidebarcont {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.sidebarcont .user {
+    color: var(--theme-color);
+    gap: 10px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.sidebarcont .user .imgloaded {
+    width: 80px;
+    height: 80px;
+}
+.sidebarcont .icons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+.notificationspreview {
+    min-height: 280px;
+    max-height: 280px;
+    margin-top: 20px;
+    overflow-y: auto;
+}
+.notificationspreview::-webkit-scrollbar {
+    width: 0;
+}
+
+.notificationsrow {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+.notificationcard {
+    height: 50px;
+    width: 100%;
+    background-color: var(--theme-bg);
+    border-radius: 10px;
+}
+/* .sidebarcont i {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+.sidebarcont .fa-home {
+    right: initial;
+    left: 30px;
+} */

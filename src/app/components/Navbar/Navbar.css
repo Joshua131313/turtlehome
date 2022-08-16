@@ -4,16 +4,14 @@
     background-color: transparent;
     display: flex;
     align-items: center;
-    padding: 0 3%;
+    padding: 0 20px;
     transition: all 0.3s;
-    position: fixed;
     top: 0;
     z-index: 999;
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
     backdrop-filter: blur(5px);
-    box-shadow: var(--light-shadow);
   }
   .categoriesbar {
     top: var(--nav-height);
@@ -32,9 +30,6 @@
     margin-bottom: 20px;
     padding-top: 20px;
     padding-left: 10px;
-  }
-  .navbar .logo {
-    font-size: 22px;
   }
   .scrollednav {
   
@@ -222,6 +217,9 @@
   }
   .categoriesrow a:hover {
     color: var(--second-color);
+  }
+  .icons {
+    gap: 10px;
   }
   @media (max-width: 1230px) {
     .navbar {

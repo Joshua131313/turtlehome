@@ -7,7 +7,7 @@ export const Logo = (props) => {
   const Tag = disabled ? 'div' : Link
   return (
     <Tag to='/' className="logo flexrow">
-        <span>Logo</span>
+        <span>TurtleFeed</span>
     </Tag>
   )
 }

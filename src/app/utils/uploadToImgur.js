@@ -2,7 +2,7 @@ import axios from "axios"
 
 export function uploadImgur(e, setImg) {
   let file = e.target.files[0]
-
+  console.log('')
   const data = new FormData()
   data.append("image", file)
   const config = {

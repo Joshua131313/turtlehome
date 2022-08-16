@@ -1,0 +1,78 @@
+.post {
+     
+}
+.post .user {
+    gap: 10px;
+}
+.post .user .flexcol time {
+    color: var(--gray-text);
+    font-size: 12px;
+    margin-top: 5px;
+}
+.post .user .flexcol span:first-of-type {
+    color: var(--theme-color);
+    font-weight: bold;
+}
+.posttext {
+    margin: 10px 0;
+    color: var(--gray-text);
+}
+.postimg {
+   border-radius: 20px;
+   width: 100%;
+   overflow: hidden;
+}
+.postcontrols, .postactiondetails {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    color: var(--gray-text);
+
+}
+.postactionbtns {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.postcontrols i {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--theme-bg);
+    border-radius: 10px;
+}
+.likedbyrow, .names, .count {
+    gap: 5px;
+}
+.likedby.fa-heart, .likedby.fa-thumbs-up{
+    width: 24px;
+    height: 24px;
+    color: #fff;
+    background-color: var(--red);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;;
+}
+.likedby.fa-thumbs-up {
+    background-color: var(--theme-color);
+}
+.postactionbtns .fa-thumbs-up:hover, .postactionbtns .fa-thumbs-up.activeactionbtn {
+    background-color: var(--theme-color);
+    color: #fff;
+}
+.postactionbtns .fa-heart:hover, .postactionbtns .fa-heart.activeactionbtn {
+    background-color: var(--red);
+    color: #fff;
+}
+.postactionbtns .comment:hover, .share i:hover {
+    background-color: #ddd;
+}
+.post .postactiondetails .likedbyrow .name span {
+    color: var(--gray-text);
+    font-size: 12px;
+    margin-left: 5px;
+}

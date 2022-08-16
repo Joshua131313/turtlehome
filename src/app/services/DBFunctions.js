@@ -17,69 +17,7 @@ export const createUserCollection = (userid, name, email, profilePic='', phoneNu
     provider
   })
 }
-export const sendMsg = (userid, convoid, msg, type='text') => {
-  let id = generateID()
-  db.collection(`chats/${convoid}/messages`).doc(id).set({
-    msg: {
-      content: msg,
-      type
-    },
-    date: new Date(),
-    senderid: userid,
-    msgid: id,
-    seenBy: []
-  })
-  db.collection('chats').doc(convoid).set({
-    lastMsgDate: new Date(),
-    lastMsg: {
-      content: msg,
-      type,
-      senderid: userid,
-      msgid: id,
-      seenBy: [],
-      date: new Date(),
-    }
-  }, {merge: true})
-}
-export const disptachCall = (userid, convoid, type, callID) => {
-  db.collection('chats').doc(convoid).set({
-    call: {
-      callid: callID,
-      type: type,
-      caller: userid,
-      members: [userid],
-    }
-  }, {merge: true})
-}
-export const endMeetingDB = (convoid) => {
-  console.log(convoid)
-  db.collection('chats').doc(convoid).set({
-    call: {
-    }
-  }, {merge: true})
-}
-export const getLastMsg = (user, convoid) => {
-   db.collection('chats').doc('KP7qXDAI7xNpuVe68gH0').collection('messages').orderBy('date', 'desc').limit(1).get(snap=> {
-    let items = []
-    snap.forEach(doc => items.push(doc.data())) 
-    console.log(items) 
-  }) 
-}
-export const createConvo = (userid, to, convoid, msg, history, type='text') => {
-  db.collection('chats').doc(convoid).set({
-    members: to.includes(userid) ? to : [...to, userid],
-    convoid: convoid,
-    lastMsg: {
-      senderid: userid,
-      msg: msg,
-      wasSeen: false,
-      date: new Date()
-    }
-  }).then(()=> {
-    sendMsg(userid, convoid, msg, type)
-    history.push({pathname: `/chat/${convoid}`})
-  })
-}
+
 
 export const loginwithProvider = (provider, history) => {
   provider.addScope('email');
@@ -99,10 +37,7 @@ export const handleUpdateUserInfo = (userid, updated, objKey) => {
     [objKey]: updated
   }, {merge: true})
 }
-export const handleMuteChat = (convoid, userid) => {
-  let id = generateID()
-  db.collection(`chats`).doc(convoid).collection('mutedBy').doc(id).set(userid, {merge: true})
-}
+
 
 export const DeleteFromDB = (collection, id) => {
   db.collection(collection).doc(id).delete()
@@ -128,14 +63,24 @@ export const ClearCollection = (collection, setState) => {
   setState && setState()
 }
 
-export const AddToDB = (collection, value) => {
-  let id = generateID()
-  let result = Object.assign(value, {notifid: id})
-  db.collection(collection).doc(id).set(result)
+export const AddToDB = (collection, value, clearFields, cID) => {
+  let id = cID ? cID : generateID()
+  let result = Object.assign(value, {id: id})
+  db.collection(collection).doc(id).set(result).then(()=> {clearFields()})
   return id
 }
 
 export const handleLogout = () =>{   
   firebase.auth().signOut()
   window.location.reload()
+}
+
+export const GetFromDB = (collection, setState) => {
+  db.collection(collection).onSnapshot(data=> {
+    let result = []
+    data.forEach(doc=> {
+      result.push(doc.data())
+    })
+    setState(result)
+  })
 }

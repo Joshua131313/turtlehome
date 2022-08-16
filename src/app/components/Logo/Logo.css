@@ -1,9 +1,11 @@
 .logo {
   gap: 10px;
-  font-size: 30px;
-  color: #000;
+  font-size: 18px;
   font-weight: bold;
   align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--theme-color);
 }
 .logo img {
 

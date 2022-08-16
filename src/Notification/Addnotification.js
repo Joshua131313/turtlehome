@@ -1,15 +1,25 @@
 
-export  function addNotification(parameters, time=7, position='tr'){
+export  function addNotification(parameters, time=70, position='tc'){
   const options = parameters
    const notification = parameters.notifisystem.current
     notification &&  notification.addNotification({
      message:  <> 
-      <div className='notic'>
+      <div className={`notic ${options.type}`}>
       <i className={options.icon} ></i> 
-      <strong>{options.msg}</strong>
+      {options.type === 'input' ?
+        <input autoFocus onClick={(e)=> e.stopPropagation()} type='text' className='input' placeholder={options.msg} onChange={(e)=> options.onChange(e)} />
+       :
+        <strong>{options.msg}</strong>
+      }
        {options&&options.button}
       </div>
-       <i className='fal fa-times'></i>  
+       {options.type === 'input' ?
+         <button className="appbtn">
+           Done
+         </button>
+         :
+         <i className='fal fa-times'></i>  
+       }
       </> ,
      level: 'warning',
      position:  position,

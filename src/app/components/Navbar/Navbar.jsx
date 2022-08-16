@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { links } from '../../data/Array'
 import AppBtn from '../AppBtn/AppBtn'
+import { AppInput } from '../AppInput/AppInput'
 import Date from '../Date/Date'
 import { Logo } from '../Logo/Logo'
 import { Drawer } from './Drawer'
@@ -20,7 +21,7 @@ export const Navbar = () => {
     }
   }
 
-  const linksrow = links.map(link=> {
+  const linksrow = links?.map(link=> {
     return (
       <NavLink end className={({ isActive }) => "navlink" + (isActive ? " activelink" : "")}   to={`${link.filter}`} >
           <i className={`sideicon ${link.icon}`}></i>
@@ -35,27 +36,20 @@ export const Navbar = () => {
   return (
     <>
     <div className={`navbar  ${scrolled ? `scrollednav`: ''}`}>
-      <div className="leftnav">
-        <i className="fal fa-search"></i>
-        <i className="fal fa-bell"></i>
-      </div>
       <Logo />
       {/* <div className="navlinksrow flexrow">
         {linksrow}
       </div> */}
-      <div className="authbtns">
-        <AppBtn text='Sign in' icon='fal fa-user' />
-        <AppBtn text='Subscribe' className='border'  />
+      <div className="searchbar">
+        <AppInput placeholder={'Search'} removeText/>
       </div>
-    </div>
-    <div className="categoriesbar">
-      <Date />
-      <div className="categoriesrow flexcol">
-        {linksrow}
+      <div className="icons flexrow">
+        <i className='fal fa-user-plus appicon'></i>
+        <i className='fal fa-cog appicon'></i>
       </div>
     </div>
     {/* <Drawer setVisible={setVisible} navlinksrow={linksrow} visible={visible}/> */}
-    <i className={`scrolltotop fa fa-chevron-up ${scrolled? 'visiblebtn':''}`} onClick={()=> window.scrollTo({top: 0})}></i>
+    {/* <i className={`scrolltotop fa fa-chevron-up ${scrolled? 'visiblebtn':''}`} onClick={()=> window.scrollTo({top: 0})}></i> */}
     </>
   )
 }

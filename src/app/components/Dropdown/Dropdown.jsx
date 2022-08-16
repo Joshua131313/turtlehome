@@ -12,6 +12,15 @@ const Dropdown = (props) => {
         </a>
       )
     }
+    else if (option.upload) {
+      return (
+        <label className='dropoption'>
+          <input onChange={(e)=> option.onChange(e)} type="file" style={{display: 'none'}} />
+          <i className={option.icon}></i>
+          <span>{option.text}</span>
+       </label>
+      )
+    }
     else {
       return ( 
         <div onClick={()=> option.onClick()} className='dropoption'>
@@ -21,7 +30,6 @@ const Dropdown = (props) => {
       )
     }
   })
-
   useEffect(()=> {
     window.onclick = () => {
      if(openID) {
@@ -30,8 +38,8 @@ const Dropdown = (props) => {
     }
   }, [openID, id])
   return (
-    <div onClick={(e)=> {setOpenID(id); e.stopPropagation()}} className={`dropcont ${openID === id?'activedrop':''}`}>
-      <i  className="fal fa-ellipsis-h appicon"></i>
+    <div onClick={(e)=> {setOpenID(openID ? null : id); e.stopPropagation()}} className={`dropcont ${openID === id?'activedrop':''}`}>
+      {props.children}
       <div className="dropdown">
           {optionsrow}
       </div>

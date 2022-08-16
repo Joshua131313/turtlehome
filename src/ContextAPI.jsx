@@ -26,7 +26,7 @@ const ContextAppProvider = (props) => {
     addNotification({
       notifisystem,
       msg,
-      icon
+      icon,
     });
   };
   useEffect(() => {

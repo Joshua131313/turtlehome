@@ -1,7 +1,53 @@
 .appcontent {
-    top: var(--nav-height);
     padding: 20px;
     height: calc(100vh - var(--nav-height));
     overflow-y: auto;
     padding-top: 0;
+}
+.appcontent::-webkit-scrollbar {
+    width: 0;
+}
+.gridlayout {
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    background-color: var(--theme-bg);
+    width: 100%;
+    padding: 0 13%;
+}
+.gridlayout > div {
+    background-color: #fff;
+}
+.gridlayout > div:nth-of-type(2) {
+    background-color: transparent;
+}
+.rightbar, .sidebar, .appcontent {
+    width: 93%;
+    height: 95%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 30px;
+}
+.appcontent {
+    width: 100%;
+}
+@media (max-width: 1600px) {
+    .gridlayout {
+        padding: 0 5%;
+    }
+}
+@media (max-width: 1300px) {
+    .gridlayout {
+        padding: 0;
+    }
+}
+@media (max-width: 1100px) {
+    .gridlayout {
+        grid-template-columns: 300px 1fr 200px;
+    }
+}
+@media (max-width: 1000px) {
+    .gridlayout {
+        grid-template-columns: 300px 1fr;
+    }
 }

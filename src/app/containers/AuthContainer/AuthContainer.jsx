@@ -40,12 +40,12 @@ const AuthContainer = (props) => {
     <div className="authcontainer">
       <div className="leftside">
         <Logo disabled/>
-        <ImgLoaded />
+        <ImgLoaded img={'https://i.imgur.com/QHXELMb.jpg'}/>
       </div>
       <div className="rightside">
         <div className="header">
           <h1>{title}</h1>
-          <span>Welcome to Clash Royale API!</span>
+          <span>Welcome to TurtleFeed</span>
         </div>
         {!isForgotPassword && <div className="authproviders">
           <GoogleBtn />

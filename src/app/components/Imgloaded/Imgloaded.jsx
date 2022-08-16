@@ -12,7 +12,7 @@ const ImgLoaded = (props) => {
 
   return ( 
     <div className={`imgloaded ${className}`} style={{top: sizes?-sizes(50):null}}>
-      <img onLoad={()=> setIsLoaded(true)} src={img} alt="" style={isLoaded?{display: 'block', width}:{display: 'none'}}/>
+      <img referrerPolicy='no-referrer' onLoad={()=> setIsLoaded(true)} src={img} alt="" style={isLoaded?{display: 'block', width}:{display: 'none'}}/>
       <div className={"rskeletonimg "+skeletonclass} style={!isLoaded?{display: 'block', width: sizes?sizes(100):null, height: sizes?sizes(100):null}:{display: 'none'}}></div>
     </div> 
   ) 

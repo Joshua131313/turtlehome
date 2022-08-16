@@ -1,17 +1,29 @@
 import React, { useContext, useEffect } from "react";
-import { Redirect, Route, Routes } from "react-router-dom";
+import { Redirect, Route, Routes, useNavigate } from "react-router-dom";
 import { AuthSwitch } from "./app/auth/AuthSwitch";
 import { ForgotPassword } from "./app/auth/ForgotPassword";
 import { Login } from "./app/auth/Login";
 import { Register } from "./app/auth/Register";
 import { Logo } from "./app/components/Logo/Logo";
 import { Navbar } from "./app/components/Navbar/Navbar";
+import Feed from "./app/pages/Feed/Feed";
 import Home from "./app/pages/Home/Home";
 import { StoreContext } from "./ContextAPI";
 
 export const AppContainer = (props) => {
   const { firebaseLoaded, user } = useContext(StoreContext);
- 
+  const navigate = useNavigate()
+  useEffect(()=> {
+    if(firebaseLoaded) {
+      if(user) {
+        navigate(-1) 
+      }
+      else {
+        navigate('/login')
+      }
+    }
+    console.log('asd')
+  }, [firebaseLoaded, user])
   return (
     <>
       {firebaseLoaded ? (
@@ -24,6 +36,22 @@ export const AppContainer = (props) => {
 
         <Routes>  
            <Route path='/'  element={<Home />}>
+             <Route path='/feed' element={<Feed />}/>
+             <Route path='/photos'>
+
+             </Route>
+             <Route path='/reels'>
+
+             </Route>
+             <Route path='/market'>
+
+             </Route>
+             <Route path='/events'>
+
+             </Route>
+             <Route path='/friends'>
+
+             </Route>
               {/* <Route path=':category' element={<CategoryPage />}/>
               <Route path="saved" element={<>Saved</>} /> */}
            </Route>

@@ -1,0 +1,9 @@
+.envelope {
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #fff;
+}
+.feed .titlebar {
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
