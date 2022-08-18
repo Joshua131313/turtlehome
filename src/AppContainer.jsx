@@ -35,7 +35,8 @@ export const AppContainer = (props) => {
         <>
 
         <Routes>  
-           <Route path='/'  element={<Home />}>
+           {user ? 
+          <Route path='/'  element={<Home />}>
              <Route index path='/' element={<Feed />}/>
              <Route path='/photos'>
 
@@ -55,9 +56,13 @@ export const AppContainer = (props) => {
               {/* <Route path=':category' element={<CategoryPage />}/>
               <Route path="saved" element={<>Saved</>} /> */}
            </Route>
-           <Route path={"/login"} element={<Login />} />
-           <Route path="/forgot-password" element={<ForgotPassword />} />
-           <Route path="/register" element={<Register />} />
+           :
+            <>
+              <Route path={"/login"} element={<Login />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/register" element={<Register />} />
+            </>
+            }
         </Routes>
         </>
       ) : (
