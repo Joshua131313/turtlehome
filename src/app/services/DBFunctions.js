@@ -74,7 +74,6 @@ export const AddToDB = (collection, value, clearFields, cID) => {
 export const handleLogout = () =>{   
   firebase.auth().signOut()
   window.location.reload()
-  window.location.pathname = '/login'
 }
 
 export const GetFromDB = (collection, setState) => {

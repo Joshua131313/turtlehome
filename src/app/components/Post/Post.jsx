@@ -23,7 +23,7 @@ const Post = props => {
     const reactions = useGetPostReactions({post})
     const [showComments, setShowComments] = useState(false)
     const [comment, setComment] = useState('')
-
+    
     const ReactionIcon = ({reaction}) => {
         const isReacted = reactions.some(x=> x.user === user.uid && x.reaction === reaction)
         return (
@@ -81,7 +81,7 @@ const Post = props => {
                     {reactionsRow}
                     {reactions.length >=1 ?
                         <div className="name flexrow">  
-                            +{reactions.length}
+                            {reactions.length - 3 > 0 ? `+${reactions.length - 3}` : ''}
                          </div>
                          :''
                     }

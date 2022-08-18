@@ -58,7 +58,7 @@ export const AppContainer = (props) => {
            </Route>
            :
             <>
-              <Route path={"/login"} element={<Login />} />
+              <Route path={"/"} element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/register" element={<Register />} />
             </>

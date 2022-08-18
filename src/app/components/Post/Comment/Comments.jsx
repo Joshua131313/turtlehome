@@ -12,7 +12,7 @@ const Comments = props => {
         )
     })
     return (
-        <div className='commentsrow'>
+        <div className='commentsrow flexcol'>
             {commentsrow}
         </div>
     );
