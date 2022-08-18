@@ -5,7 +5,7 @@ export const sideBarLinks = [
     {
         text: 'Feed',
         icon: 'rss',
-        link: 'feed'
+        link: ''
     },
     {
         text: 'Photos',

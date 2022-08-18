@@ -68,11 +68,35 @@
     background-color: var(--red);
     color: #fff;
 }
-.postactionbtns .comment:hover, .share i:hover {
+.postactionbtns .comment:hover, .share i:hover, .postactionbtns .activecommenticon {
     background-color: #ddd;
 }
 .post .postactiondetails .likedbyrow .name span {
     color: var(--gray-text);
     font-size: 12px;
     margin-left: 5px;
+}
+.commentinput {
+    margin-top: 25px;
+    gap: 10px;
+    align-items: flex-start;
+}
+.commentinput .inputcont {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.commentinput .inputcont button {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+}
+.commentinput textarea {
+    padding: 10px;
+    padding-right: 95px;
+    min-height: 45px;
+}
+.commentinput .imgloaded {
+    width: 30px;
+    height: 30px;
 }

@@ -70,6 +70,7 @@ export const AddToDB = (collection, value, clearFields, cID) => {
   return id
 }
 
+
 export const handleLogout = () =>{   
   firebase.auth().signOut()
   window.location.reload()

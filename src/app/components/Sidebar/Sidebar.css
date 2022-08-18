@@ -4,13 +4,16 @@
 }
 .sidebar {
     overflow-y: auto;
+    display: grid;
 }
 .sidebar > div {
 }
 .sidebarlinksrow {
     gap: 10px;
     overflow-y: auto;
-
+}
+.sidebarlinksrow::-webkit-scrollbar {
+    width: 0;
 }
 .sidebarlink {
     width: 100%;

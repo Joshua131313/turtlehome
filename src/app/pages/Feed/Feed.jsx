@@ -16,6 +16,7 @@ import ImgLoaded from '../../components/Imgloaded/Imgloaded';
 import { clear } from '@testing-library/user-event/dist/clear';
 import AppUser from '../../components/User/AppUser';
 import Post from '../../components/Post/Post';
+import PostBtn from '../../components/AppBtn/PostBtn';
 
 const Feed = props => {
     const [img, setImg] = useState('')
@@ -64,7 +65,7 @@ const Feed = props => {
     })
 
     useEffect(()=> {
-       user &&  db.collectionGroup('posts').onSnapshot((snap)=> {
+       user &&  db.collectionGroup('posts').orderBy('datePosted', 'desc').onSnapshot((snap)=> {
             let posts = []
             snap.forEach((doc)=> {
                 posts.push(doc.data())
@@ -90,8 +91,7 @@ const Feed = props => {
                    <Dropdown openID={opendID} setOpenID={setOpenID} id={1} options={[{icon: 'fal fa-link', text: "URL", onClick: ()=> {handleImgURL()}}, {icon: 'fal fa-upload', text: "Upload", upload: true, onChange: (e)=> {setImg(e.target.value)}}]}>
                         <AppBtn text='Upload Image' icon='fal fa-image'/>
                    </Dropdown>
-                   <AppBtn text='Post' onClick={()=> handleCreatePost()} icon='fal fa-paper-plane'/>
-
+                    <PostBtn value={text} onClick={()=> handleCreatePost()} />
                 </div>
                 {img && 
                     <div className="uploadedmedia">

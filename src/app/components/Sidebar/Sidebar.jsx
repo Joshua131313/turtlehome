@@ -18,7 +18,7 @@ const Sidebar = props => {
         )
     })
     return (
-        <div className='sidebar flexcol'>
+        <div className='sidebar'>
             <Envelope className="sidebarcont">
                 <User isLink/>
                 <div className="icons">

@@ -29,3 +29,10 @@
   color: #fff;
   border: solid 1px transparent
 }
+#root .appbtn.disabledbtn {
+  background-color: rgb(146, 146, 146);
+  cursor: no-drop;
+}
+.appbtn.appbtn.disabledbtn:active {
+  transform: initial;
+}

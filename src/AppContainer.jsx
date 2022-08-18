@@ -13,17 +13,17 @@ import { StoreContext } from "./ContextAPI";
 export const AppContainer = (props) => {
   const { firebaseLoaded, user } = useContext(StoreContext);
   const navigate = useNavigate()
-  useEffect(()=> {
-    if(firebaseLoaded) {
-      if(user) {
-        navigate(-1) 
-      }
-      else {
-        navigate('/login')
-      }
-    }
-    console.log('asd')
-  }, [firebaseLoaded, user])
+  // useEffect(()=> {
+  //   if(firebaseLoaded) {
+  //     if(user) {
+  //       navigate(-1) 
+  //     }
+  //     else {
+  //       navigate('/login')
+  //     }
+  //   }
+  //   console.log('asd')
+  // }, [firebaseLoaded, user])
   return (
     <>
       {firebaseLoaded ? (
@@ -36,7 +36,7 @@ export const AppContainer = (props) => {
 
         <Routes>  
            <Route path='/'  element={<Home />}>
-             <Route path='/feed' element={<Feed />}/>
+             <Route index path='/' element={<Feed />}/>
              <Route path='/photos'>
 
              </Route>
