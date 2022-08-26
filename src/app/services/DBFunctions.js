@@ -85,3 +85,16 @@ export const GetFromDB = (collection, setState) => {
     setState(result)
   })
 }
+export const addReaction = (collection, reaction, isReacted) => {
+  const user = firebase.auth().currentUser
+  if(isReacted) {
+      db.collection(collection).doc(user.uid).delete()
+  }
+  else {
+      db.collection(collection).doc(user.uid).set({
+          reaction,
+          dateReacted: new Date(),
+          user: user.uid
+      })
+  }
+}

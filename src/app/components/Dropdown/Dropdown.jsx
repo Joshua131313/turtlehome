@@ -3,10 +3,10 @@ import './Dropdown.css'
 
 const Dropdown = (props) => {
   const {options, openID, setOpenID, id} = props
-  const optionsrow = options.map(option=> {
+  const optionsrow = options.map((option, i)=> {
     if(option.download) {
       return (
-        <a href='' target='__blank' className='dropoption'>
+        <a href='' target='__blank' className='dropoption' key={i}>
           <i className={option.icon}></i>
           <span>{option.text}</span>
         </a>
@@ -14,8 +14,8 @@ const Dropdown = (props) => {
     }
     else if (option.upload) {
       return (
-        <label className='dropoption'>
-          <input onChange={(e)=> option.onChange(e)} type="file" style={{display: 'none'}} />
+        <label key={i} className='dropoption'>
+          <input multiple={false} onChange={(e)=> option.onChange(e)} type="file" style={{display: 'none'}} />
           <i className={option.icon}></i>
           <span>{option.text}</span>
        </label>
@@ -23,7 +23,7 @@ const Dropdown = (props) => {
     }
     else {
       return ( 
-        <div onClick={()=> option.onClick()} className='dropoption'>
+        <div key={i} onClick={()=> option.onClick()} className='dropoption'>
           <i className={option.icon}></i>
           <span>{option.text}</span>
         </div>
@@ -31,14 +31,18 @@ const Dropdown = (props) => {
     }
   })
   useEffect(()=> {
-    window.onclick = () => {
-     if(openID) {
+     if(openID) { 
+       window.onclick = () => {
         setOpenID(null) 
-     }
+      }
+    }
+    return () => {
+      window.onclick = null
     }
   }, [openID, id])
+  
   return (
-    <div onClick={(e)=> {setOpenID(openID ? null : id); e.stopPropagation()}} className={`dropcont ${openID === id?'activedrop':''}`}>
+    <div onClick={(e)=> {setOpenID(prev=> prev === id ? null : id); e.stopPropagation()}} className={`dropcont ${openID === id?'activedrop':''}`}>
       {props.children}
       <div className="dropdown">
           {optionsrow}

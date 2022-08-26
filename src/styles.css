@@ -168,6 +168,9 @@ input::-webkit-inner-spin-button {
 .sb {
   justify-content: space-between;
 }
+.fe {
+  justify-content: flex-end;
+}
 .loading {
   display: flex;
   justify-content: center;
@@ -322,7 +325,6 @@ details[open] > summary {
   min-height: 100vh;
   display: grid;
   background-color: var(--theme-bg);
-  grid-template-rows: var(--nav-height) 1fr;  
 }
 .appicon {
   width: 30px;
@@ -344,4 +346,16 @@ details[open] > summary {
 }
 .notification  {
   border-radius: 10px !important;
+}
+.gap-5 {
+  gap: 5px;
+}
+.gap-10 {
+  gap: 10px;
+}
+.gap-15 {
+  gap: 15px;
+}
+.gap-20p {
+  gap: 20px;
 }

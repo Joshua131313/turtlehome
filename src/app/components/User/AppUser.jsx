@@ -6,15 +6,15 @@ import ImgLoaded from '../Imgloaded/Imgloaded';
 
 const AppUser = props => {
     const {userid, showImg=true, showText=true} = props 
-    const userInfo = useGetUserInfo(userid)
-    
+    const userInfo = useGetUserInfo(userid) 
+     
     return (
         <div  className="user flexrow ac" >
             {showImg && <ImgLoaded img={userInfo?.userinfo?.profilePic}/>}
              {showText && <div className="flexcol">
                  <span>{userInfo?.name}</span>
                  {props.children}
-             </div>}
+             </div>} 
         </div>
     );
 };

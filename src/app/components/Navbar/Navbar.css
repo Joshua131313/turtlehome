@@ -1,6 +1,6 @@
 .navbar {
     width: 100%;
-    height: var(--nav-height);
+    min-height: var(--nav-height);
     background-color: transparent;
     display: flex;
     align-items: center;
@@ -10,6 +10,9 @@
     z-index: 999;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    border-radius: 0 0 10px 10px ;
     background-color: #fff;
     backdrop-filter: blur(5px);
   }
@@ -220,6 +223,29 @@
   }
   .icons {
     gap: 10px;
+  }
+  .searchbar {
+    width: 300px;
+  }
+  .searchedusers {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: var(--light-shadow);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    transform: translateY(10px) translateX(-50%);
+    left: 50%;
+    width: 100%;
+  }
+  .searchedusers .imgloaded {
+    margin-right: 10px;
+    min-width: 50px;
+  }
+  .searchedusers span {
+    white-space: nowrap;
   }
   @media (max-width: 1230px) {
     .navbar {

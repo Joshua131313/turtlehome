@@ -17,13 +17,21 @@ import { clear } from '@testing-library/user-event/dist/clear';
 import AppUser from '../../components/User/AppUser';
 import Post from '../../components/Post/Post';
 import PostBtn from '../../components/AppBtn/PostBtn';
+import firebase from 'firebase';
+import Popup from '../../components/Popup/Popup';
+import Dropzone from 'react-dropzone'
+import DropZone from '../../components/DropZone/DropZone';
+import SelectedImgs from '../../components/DropZone/SelectedImgs';
 
 const Feed = props => {
     const [img, setImg] = useState('')
     const {user, addNoti, notifisystem} = useContext(StoreContext)
     const [text, setText] = useState('')
-    const [opendID, setOpenID] = useState(null)
+    const [openID, setOpenID] = useState(null)
     const [posts, setPosts] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [dropZone, setDropZone] = useState(false)
+    const [files, setFiles] = useState([])
     const clearFields = () => {
         setText('')
         setImg('')
@@ -51,16 +59,53 @@ const Feed = props => {
         addNotification({
             msg: 'Type Image URL...',
             icon: 'fa fa-link',
-            onChange: (e)=>  setImg(e.target.value),
+            onChange: (e)=>  setFiles(prev=> [{preview: e.target.value, isUrl: true}, ...prev]),
             value: img,
             type: 'input',
             notifisystem
         }, Infinity)
     }
+    const uploadImgs = (e) => {
+        
+        const files = e.target.files
+        
+        files.forEach((file)=> {
+          if(file) {
+            let storageRef = firebase.storage().ref(`${user.uid}/images`).child(generateID())
+            const task = storageRef.put(file)
+            task.on(
+                "state_changes",
+                function progress(snap) {
+                  setLoading(true);
+                //   const percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+                //   loadingref.current.style.height = percentage + "%";
+                }, 
+                function error() {
+                  addNoti({
+                    text: "Try Again!", 
+                    icon: "fal fa-exclamation-circle"
+                  });
+                },
+                function complete() {
+                  setLoading(false);
+                  storageRef.getDownloadURL().then((url) => {
+                    let tempState = [...img]
+                    tempState.push(url)
+                    setImg(tempState)
+                  });
+                  addNoti({
+                    text: "Media Uploaded!",
+                    icon: "fal fa-check-circle"
+                  });
+                }
+              );
+          }
+        })
+    }
     
     const postsrow = posts?.map(post=> {
         return (
-            <Post post={post} />
+            <Post post={post} key={post.id} openID={openID} setOpenID={setOpenID}/>
         )
     })
 
@@ -73,7 +118,6 @@ const Feed = props => {
             setPosts(posts)
         })
     }, [user])
-
     return (
         <div className='feed'>
             <Envelope >
@@ -88,21 +132,21 @@ const Feed = props => {
 
                 <div className="selectmedia sb flexrow">
 
-                   <Dropdown openID={opendID} setOpenID={setOpenID} id={1} options={[{icon: 'fal fa-link', text: "URL", onClick: ()=> {handleImgURL()}}, {icon: 'fal fa-upload', text: "Upload", upload: true, onChange: (e)=> {setImg(e.target.value)}}]}>
-                        <AppBtn text='Upload Image' icon='fal fa-image'/>
+                   <Dropdown openID={openID} setOpenID={setOpenID} id={1} options={[{icon: 'fal fa-link', text: "URL", onClick: ()=> {handleImgURL()}}, {icon: 'fal fa-upload', text: "Upload", onClick: ()=> setDropZone(true)}]}>
+                        <AppBtn text='Upload Media' icon='fal fa-image'/>
                    </Dropdown>
                     <PostBtn value={text} onClick={()=> handleCreatePost()} />
                 </div>
-                {img && 
-                    <div className="uploadedmedia">
-                        <ImgLoaded img={img}/>
-                    </div>
-                }
+                <SelectedImgs files={files} setFiles={setFiles} />
       
             </Envelope>
             <div className="postsrow">
                     {postsrow}
             </div>
+            <Popup className='imguploadpopup' visible={dropZone} setVisible={setDropZone}>
+                <h2>Upload Media</h2>
+                <DropZone setVisible={setDropZone} files={files} setFiles={setFiles} />
+            </Popup>
         </div>
     );
 };

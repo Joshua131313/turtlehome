@@ -6,6 +6,7 @@ import AppBtn from '../AppBtn/AppBtn'
 import { AppInput } from '../AppInput/AppInput'
 import Date from '../Date/Date'
 import { Logo } from '../Logo/Logo'
+import AppUser from '../User/AppUser'
 import { Drawer } from './Drawer'
 import './Navbar.css'
 
@@ -16,7 +17,7 @@ export const Navbar = () => {
   const [visible, setVisible] = useState(false)
   const usersIndex = usersSearchClient.initIndex('users_index')
   const [searchValue, setSearchValue] = useState('')
-
+  const [users, setUsers] = useState([])
   function handleScroll(){
     if(window.scrollY > 50) {
       setScrolled(true)
@@ -34,7 +35,17 @@ export const Navbar = () => {
       </NavLink>
     )
   })
-
+ const usersrow = users?.map(user=> {
+   return (
+      <div className="searcheduser flexrow ac sb">
+         <AppUser userid={user.uid}/>
+         <div className="controls flexrow gap-10">
+           <i className='appicon fal fa-comment'></i>
+           <i className='appicon fal fa-user-plus'></i>
+         </div>
+      </div>
+   ) 
+ })
   
 
   useEffect(()=>{
@@ -43,7 +54,7 @@ export const Navbar = () => {
   
   useEffect(()=> {
     usersIndex.search(searchValue).then(({ hits }) => {
-      console.log(hits)
+      setUsers(hits)
     })
   }, [searchValue])
 
@@ -54,9 +65,12 @@ export const Navbar = () => {
       {/* <div className="navlinksrow flexrow">
         {linksrow}
       </div> */}
-      <div className="searchbar">
+      {/* <div className="searchbar">
         <AppInput placeholder={'Search users, posts or events'} removeText setValue={setSearchValue} value={searchValue}/>
-      </div>
+        <div className="searchedusers">
+          {usersrow}
+        </div>
+      </div> */}
       <div className="icons flexrow">
         <i className='fal fa-user-plus appicon'></i>
         <i className='fal fa-cog appicon'></i>

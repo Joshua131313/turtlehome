@@ -4,7 +4,7 @@ import './Envelope.css'
 
 const Envelope = props => {
     return (
-        <div className={`envelope ${props.className}`}>
+        <div className={`envelope ${props.className}`} id={props.id}>
             {props.children}
         </div>
     );

@@ -33,6 +33,6 @@
 .innercommentcontrols span {
     cursor: pointer;
 }
-.innercommentcontrols span:hover {
+.innercommentcontrols span:hover, .innercommentcontrols .activelike {
     color: var(--theme-color);
 }

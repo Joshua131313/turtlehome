@@ -11,10 +11,10 @@ import RightBar from '../../components/RightBar/RightBar';
 const Home = props => {
     return (
         <div className='home'>
-            <Navbar />
             <div className="gridlayout">
                 <Sidebar />
                 <div className="appcontent">
+                <Navbar />
                 <Outlet />
                 </div>
                 <RightBar />

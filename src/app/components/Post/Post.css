@@ -1,13 +1,14 @@
 .post {
-     
+     overflow: hidden;
 }
 .post .user {
     gap: 10px;
 }
-.post .user .flexcol time {
+.post .user .flexcol .timeago {
     color: var(--gray-text);
     font-size: 12px;
     margin-top: 5px;
+    text-transform: capitalize;
 }
 .post .user .flexcol span:first-of-type {
     color: var(--theme-color);
@@ -99,4 +100,12 @@
 .commentinput .imgloaded {
     width: 30px;
     height: 30px;
+}
+.drop {
+    position: absolute;
+}
+.drop {
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }

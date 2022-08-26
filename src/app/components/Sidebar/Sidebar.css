@@ -1,16 +1,26 @@
 .gridlayout > div {
-    max-height: calc(100vh - var(--nav-height) - 40px);
     background-color: transparent;
+    max-height: 100vh;
 }
 .sidebar {
     overflow-y: auto;
     display: grid;
+    grid-template-rows: 200px 2fr 1.2fr;
+    border-radius: 0;
+}
+.sidebar .envelope {
+    border-radius: 0;
+}
+.sidebar .sidebarcont {
+    margin-bottom: 0;
 }
 .sidebar > div {
 }
 .sidebarlinksrow {
     gap: 10px;
     overflow-y: auto;
+    border-bottom: solid 1px #eee;
+    border-top: solid 1px #eee;
 }
 .sidebarlinksrow::-webkit-scrollbar {
     width: 0;
@@ -68,9 +78,7 @@
     margin-top: 10px;
 }
 .notificationspreview {
-    min-height: 280px;
-    max-height: 280px;
-    margin-top: 20px;
+    height: 100%;
     overflow-y: auto;
 }
 .notificationspreview::-webkit-scrollbar {

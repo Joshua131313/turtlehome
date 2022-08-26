@@ -9,9 +9,9 @@ import Envelope from '../../containers/Envelope/Envelope';
 import { handleLogout } from '../../services/DBFunctions';
 
 const Sidebar = props => {
-    const sidebarlinksrow = sideBarLinks.map(link=> {
+    const sidebarlinksrow = sideBarLinks.map((link, i)=> {
         return (
-            <NavLink to={`/${link.link}`} className={({isActive})=> "sidebarlink" + (isActive ? ' activelink':'')}>
+            <NavLink to={`/${link.link}`} key={i} className={({isActive})=> "sidebarlink" + (isActive ? ' activelink':'')}>
                 <i className={`fal fa-${link.icon}`}></i>
                 <span>{link.text}</span>
             </NavLink>
@@ -40,6 +40,12 @@ const Sidebar = props => {
                 <div className="notificationsrow">
                     <div className="notificationcard">
                         
+                    </div>
+                    <div className="notificationcard">
+
+                    </div>
+                    <div className="notificationcard">
+
                     </div>
                     <div className="notificationcard">
 

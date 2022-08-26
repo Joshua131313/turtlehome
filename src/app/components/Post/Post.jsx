@@ -13,17 +13,20 @@ import ReactTextareaAutosize from 'react-textarea-autosize';
 import AppBtn from '../AppBtn/AppBtn';
 import PostBtn from '../AppBtn/PostBtn';
 import CommentInput from './Comment/CommentInput';
-import { generateID } from '../../services/DBFunctions';
+import { addReaction, generateID } from '../../services/DBFunctions';
 import useGetPostComments from '../../services/GetPostComments';
 import Comments from './Comment/Comments';
+import useGetReactions from '../../services/GetReactions';
+import Dropdown from '../Dropdown/Dropdown';
+import Drop from './Drop';
+import { getTimeAgo } from '../../utils/date';
 
 const Post = props => {
-    const {post} = props
+    const {post, openID, setOpenID} = props
     const {user} = useContext(StoreContext)
-    const reactions = useGetPostReactions({post})
+    const reactions = useGetReactions({collection: `/users/${post.postedBy}/posts/${post.id}/reactions`, limit: 3})
     const [showComments, setShowComments] = useState(false)
     const [comment, setComment] = useState('')
-    
     const ReactionIcon = ({reaction}) => {
         const isReacted = reactions.some(x=> x.user === user.uid && x.reaction === reaction)
         return (
@@ -31,16 +34,7 @@ const Post = props => {
         )
     }
     const handleReaction = (reaction, isReacted) => {
-        if(isReacted) {
-            db.collection(`/users/${post.postedBy}/posts`).doc(post.id).collection('reactions').doc(user.uid).delete()
-        }
-        else {
-            db.collection(`/users/${post.postedBy}/posts`).doc(post.id).collection('reactions').doc(user.uid).set({
-                reaction,
-                dateReacted: new Date(),
-                user: user.uid
-            })
-        }
+        addReaction(`/users/${post.postedBy}/posts/${post.id}/reactions`, reaction, isReacted)
     }
     const sendComment = () => {
         let id = generateID()
@@ -62,11 +56,13 @@ const Post = props => {
                 <AppUser userid={reaction.user} showImg={false}/>
             </div>
         )
-    })
+    }) 
     return (
-        <Envelope className='post'>
+        <Envelope className='post' id={post.id}> 
             <AppUser userid={post.postedBy}> 
-                <TimeAgo date={post && post.datePosted.toDate()} />
+                <span className="timeago">
+                    {getTimeAgo(post && post.datePosted.toDate())}
+                </span>
             </AppUser>
             <div className="posttext">
                 {post?.postContent.text}
@@ -108,6 +104,10 @@ const Post = props => {
                     <Comments post={post}/>
                 </div>
             }
+            <button onClick={(e)=> console.log(e)}>s</button>
+           <Dropdown openID={openID} setOpenID={setOpenID} id={post.id} options={[{text: 'asd'}, {text: 'asd'}]}>
+               <button>asd</button>
+           </Dropdown>
        </Envelope>
     );
 };

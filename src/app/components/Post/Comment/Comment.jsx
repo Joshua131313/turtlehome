@@ -5,10 +5,19 @@ import AppUser from '../../User/AppUser';
 import ImgLoaded from '../../Imgloaded/Imgloaded';
 import { useGetUserInfo } from '../../../services/GetUserInfo';
 import firebase from 'firebase';
+import { db } from '../../../../Fire';
+import { addReaction, generateID } from '../../../services/DBFunctions';
+import useGetReactions from '../../../services/GetReactions';
 const Comment = props => {
     const user = firebase.auth().currentUser
     const {comment} = props
     const userInfo = useGetUserInfo(comment.postedBy)
+    const commentReactions = useGetReactions({collection: `/users/${comment.postedBy}/posts/${comment.postId}/comments/${comment.commentId}/reactions`, limit: Infinity})
+ 
+    const handleLike = () => {
+        const isLiked = commentReactions.some(x=> x.user === user.uid && x.reaction === 'thumbs-up')
+        addReaction(`/users/${user.uid}/posts/${comment.postId}/comments/${comment.commentId}/reactions`, 'thumbs-up', isLiked)
+    }
 
     return (
         <div className='comment flexrow'>
@@ -23,7 +32,7 @@ const Comment = props => {
                 <div className="commentcontrols flexrow sb ac">
                     <span>10 Days ago</span>
                     <div className="innercommentcontrols flexrow">
-                        <span className="edit">Like</span>
+                        <span className={`${commentReactions.some(x=> x.user === user.uid && x.reaction === 'thumbs-up') ? 'activelike' : ''} like`} onClick={()=> handleLike()}>{commentReactions.some(x=> x.user === user.uid && x.reaction === 'thumbs-up') ? 'Liked' : 'Like'}</span>
                         <span className="reply">Reply</span>
                         {user.uid === comment.postedBy &&
                          <>
