@@ -5,11 +5,12 @@ import Portal from '../Portal/Portal';
 
 const Popup = props => {
     const {className, visible, setVisible} = props
+    if(!visible) return null
     return (
        <>
-       <Portal showPortal={visible} className={` popup ${visible ? 'activepopup' : ''}`}>
+       <Portal setVisible={setVisible} showPortal={visible} className={` popup ${visible ? 'activepopup' : ''}`}>
            <i className="closeicon fal fa-times" onClick={()=> setVisible(false)}></i>
-           <div className={`${props.className} popupcontent`}>
+           <div className={`${className} popupcontent`} onClick={e=> e.stopPropagation()}>
                {props.children}
            </div>
        </Portal>

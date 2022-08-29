@@ -6,6 +6,7 @@
 .mediacarousel .carouselimg {
     height: 350px;
     border-radius: 10px;
+    cursor: pointer;
 }
 .carouselimg img {
     border-radius: 10px;
@@ -25,6 +26,8 @@
     gap: 10px;
     opacity: 0;
     transition: all 0.3s;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .thumbnails .imgloaded {
     width: 60px;
@@ -35,7 +38,7 @@
 .thumbnails .activethumbnailimg {
     border: solid 2px var(--theme-color);
 }
-.mediacarousel .next, .mediacarousel .prev {
+.mediacarousel .next, .mediacarousel .prev, .imagesliderpopup .next, .imagesliderpopup .prev {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -43,12 +46,58 @@
     background-color: transparent;
     font-size: 28px;
     opacity: 0;
+    z-index: 100;
     transition: all 0.3s;
 }
-.mediacarousel .next {
+.mediacarousel .next, .imagesliderpopup .next {
     left: initial;
     right: 10px;
 }
 .mediacarousel:hover .next, .mediacarousel:hover .prev {
     opacity: 1;
+}
+.imagesliderpopup {
+    max-width: 80%;
+    max-height: 80vh;
+}
+.imagesliderpopup .prev, .imagesliderpopup .next {
+    opacity: 1;
+    font-size: 44px;
+    left: 25px;
+}
+.imagesliderpopup .next {
+    right: 25px;
+    left: initial;
+}
+.imagesliderpopup .thumbnails {
+    opacity: 1;
+    bottom: 0;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+}
+.imagesliderpopup .thumbnails .imgloaded {
+    width: 70px;
+    height: 70px;
+}
+.imagesliderpopup .carouselimg .imgloaded {
+    max-height: 65vh;
+    background-color: transparent;
+}
+.imagesliderpopup figure {
+    border-radius: 10px;
+}
+.imagesliderpopup .carouselimg .imgloaded img {
+    height: 100%;
+    max-height: 65vh;
+
+}
+.controlsheader {
+    margin-bottom: 10px;
+    justify-content: center;
+}
+.controlsheader i {
+    width: 40px;
+    height: 40px;
 }
