@@ -16,9 +16,12 @@ const CommentInput = props => {
     return (
         <div className="commentinput flexrow">
             <User showName={false} /> 
-            <div className='inputcont'>
+            <div className='inputcont flexcol'>
                 <ReactTextareaAutosize type="text" placeholder={placeholder} onKeyUp={(e)=> handleEnter(e)} value={value} onChange={e=> setValue(e.target.value)}/>
-                <PostBtn text={text} value={value} onClick={()=> onClick()}/>
+                <div className="flexrow inputcommentcontrols sb">
+                    
+                    <PostBtn text={text} value={value} onClick={()=> onClick()}/>
+                </div>
             </div>
          </div>
     );

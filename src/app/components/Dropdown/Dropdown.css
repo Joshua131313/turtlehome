@@ -6,29 +6,44 @@
   flex-direction: column;
   background-color: #fff;
   border-radius: 10px;
-  padding: 10px 15px;
+  padding: 10px 5px;
   gap: 10px;
   width: auto;
   right: 0;
+  box-shadow: var(--card-shadow);
 }
 
 .dropdown .dropoption {
   display: flex;
-  font-size: 14px;
+  font-size: 12px;
   justify-content: flex-start;
   gap: 10px;
   cursor: pointer;
   color: var(--gray-text);
-  align-items: center
+  align-items: center;
+  border-radius: 5px;
+  transition: all 0.3s;
+  padding: 7px;
+  white-space: nowrap;
 }
-.dropoption:hover span {
-  color: var(--theme-color)
+.dropdown .dropoption:hover {
+  background-color: var(--theme-bg);
 }
+
 .dropoption i {
   width: 10px;
   display: flex;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: var(--light-shadow);
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
   color: var(--theme-color);
-  justify-content: center
+  box-shadow: var(--light-shadow);
+  height: 25px;
 }
 .dropdown {
   opacity: 0;

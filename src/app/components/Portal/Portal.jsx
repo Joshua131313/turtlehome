@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
+import ReactDOM from 'react-dom';
 
 const Portal = props => {
-    const {id='drops'} = props
-    return createPortal(
-        <div className={props.className}>
+    const {id='drops', style, showPortal} = props
+    
+    if (!showPortal) return null
+
+    return ReactDOM.createPortal(
+        <div className={props.className} style={style? style : {}}>
             {props.children}
         </div>
-    ,  document.getElementById('drops'));
+    ,  document.body)
 };
 
 Portal.propTypes = {

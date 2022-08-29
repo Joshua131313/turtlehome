@@ -4,11 +4,10 @@ import './Popup.css'
 import Portal from '../Portal/Portal';
 
 const Popup = props => {
-    const [showPopup, setShowPopup] = useState(false) 
     const {className, visible, setVisible} = props
     return (
        <>
-       <Portal className={` popup ${visible ? 'activepopup' : ''}`}>
+       <Portal showPortal={visible} className={` popup ${visible ? 'activepopup' : ''}`}>
            <i className="closeicon fal fa-times" onClick={()=> setVisible(false)}></i>
            <div className={`${props.className} popupcontent`}>
                {props.children}

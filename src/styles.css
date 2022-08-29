@@ -22,7 +22,7 @@ body {
   --theme-second: #d4ddfa;
   --gray: rgb(251, 251, 251);
   --light-blue: #6084ff;
-  --gray-text: #606060;
+  --gray-text: #696e93;
   --gray-bg: #fafafa;
   --light-gray-text: #e0e0e0;
   --red: #e50914;
@@ -32,6 +32,8 @@ body {
   --scale-factor: 0.97;
   --theme-bg: #f4f3f8;
   --nav-height: 55px;
+  --card-shadow: 0 3px 6px rgb(0 0 0 / 10%);
+
 }
 
 .closeicon {
@@ -358,4 +360,9 @@ details[open] > summary {
 }
 .gap-20p {
   gap: 20px;
+}
+.drops {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

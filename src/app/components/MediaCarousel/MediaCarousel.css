@@ -1,0 +1,54 @@
+.mediacarousel {
+    justify-content: center;
+    background-color: var(--theme-bg);
+    border-radius: 10px;
+}
+.mediacarousel .carouselimg {
+    height: 350px;
+    border-radius: 10px;
+}
+.carouselimg img {
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+.mediacarousel:hover .carouselimg img {
+    filter: brightness(80%);
+}
+.mediacarousel:hover .thumbnails {
+    opacity: 1;
+}
+.thumbnails {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+.thumbnails .imgloaded {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.thumbnails .activethumbnailimg {
+    border: solid 2px var(--theme-color);
+}
+.mediacarousel .next, .mediacarousel .prev {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    background-color: transparent;
+    font-size: 28px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+.mediacarousel .next {
+    left: initial;
+    right: 10px;
+}
+.mediacarousel:hover .next, .mediacarousel:hover .prev {
+    opacity: 1;
+}

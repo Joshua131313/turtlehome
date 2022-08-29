@@ -20,7 +20,7 @@
     height: 35px;
 }
 .selectmedia .dropdown {
-    top: -70px;
+    top: -115px;
     right: initial;
     box-shadow: var(--light-shadow);
 }
@@ -46,4 +46,7 @@
  }
 .imguploadpopup h2 {
     color: var(--theme-color);
+}
+.createpostcontrols {
+    box-shadow: var(--card-shadow);
 }

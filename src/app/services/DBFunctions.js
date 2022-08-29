@@ -64,8 +64,13 @@ export const ClearCollection = (collection, setState) => {
 }
 
 export const AddToDB = (collection, value, clearFields, cID) => {
+  const user = firebase.auth().currentUser
   let id = cID ? cID : generateID()
-  let result = Object.assign(value, {id: id})
+  let result = Object.assign(value, {
+    id: id,                 
+    postedBy: user.uid,
+    datePosted: new Date(),
+  })
   db.collection(collection).doc(id).set(result).then(()=> {clearFields()})
   return id
 }

@@ -20,6 +20,7 @@ import useGetReactions from '../../services/GetReactions';
 import Dropdown from '../Dropdown/Dropdown';
 import Drop from './Drop';
 import { getTimeAgo } from '../../utils/date';
+import MediaCarousel from '../MediaCarousel/MediaCarousel';
 
 const Post = props => {
     const {post, openID, setOpenID} = props
@@ -27,10 +28,13 @@ const Post = props => {
     const reactions = useGetReactions({collection: `/users/${post.postedBy}/posts/${post.id}/reactions`, limit: 3})
     const [showComments, setShowComments] = useState(false)
     const [comment, setComment] = useState('')
-    const ReactionIcon = ({reaction}) => {
+    const ReactionIcon = ({reaction, text}) => {
         const isReacted = reactions.some(x=> x.user === user.uid && x.reaction === reaction)
         return (
-            <i className={`${isReacted? 'activeactionbtn fa ':'fal ' } fa-${reaction}`} onClick={()=> handleReaction(reaction, isReacted)}></i>
+           <div className='flexrow ac reactioncont gap-5' onClick={()=> handleReaction(reaction, isReacted)}>
+                <i className={`${isReacted? 'activeactionbtn fa ':'fal ' } fa-${reaction}`} ></i>
+                <span>{text}</span>
+           </div>
         )
     }
     const handleReaction = (reaction, isReacted) => {
@@ -57,19 +61,33 @@ const Post = props => {
             </div>
         )
     }) 
+
     return (
         <Envelope className='post' id={post.id}> 
-            <AppUser userid={post.postedBy}> 
-                <span className="timeago">
-                    {getTimeAgo(post && post.datePosted.toDate())}
-                </span>
-            </AppUser>
+            <div className="postheader flexrow ac sb">
+                <AppUser userid={post.postedBy}> 
+                    <span className="timeago">
+                        {getTimeAgo(post && post.datePosted.toDate())}
+                    </span>
+                </AppUser>
+                <Dropdown 
+                    options={[
+                        {text: 'Report post', icon: 'fal fa-flag'},
+                        {text: 'Edit post', icon: 'fal fa-pencil'},
+                        {text: 'Delete post', icon: 'fal fa-trash'},
+                    ]} 
+                    id={post.id} 
+                    openID={openID} 
+                    setOpenID={setOpenID}>
+                    <i className="appicon fal fa-ellipsis-h"></i>
+                </Dropdown>
+            </div>
             <div className="posttext">
                 {post?.postContent.text}
             </div>
             {post?.postContent.media &&
-                <div className="postimg">
-                    <ImgLoaded img={post?.postContent.media} />
+                <div className="postmedia">
+                    <MediaCarousel media={post?.postContent.media} />
                 </div>
             }
             <div className="postactiondetails">
@@ -89,12 +107,16 @@ const Post = props => {
             </div>
             <div className="postcontrols">
                 <div className="postactionbtns">
-                    <ReactionIcon reaction='thumbs-up' />
-                    <ReactionIcon reaction='heart' />
-                    <i className={`fal fa-comment comment ${showComments ? 'activecommenticon':''}`} onClick={()=> setShowComments(!showComments)}></i>
+                    <ReactionIcon reaction='thumbs-up' text='Like'/>
+                    {/* <ReactionIcon reaction='heart' text='Love'/> */}
+                    <div className="flexrow ac reactioncont commentcont gap-5" onClick={()=> setShowComments(!showComments)}>
+                        <i className={`fa fa-comment-alt comment ${showComments ? 'activecommenticon':''}`} ></i>
+                        <span>Comment</span>
+                    </div>
                 </div>
-                <div className="share">
+                <div className="share flexrow ac gap-5">
                     <i className="fa fa-share"></i>
+                    <span>Share</span>
                 </div>
             </div>
             {
@@ -104,10 +126,10 @@ const Post = props => {
                     <Comments post={post}/>
                 </div>
             }
-            <button onClick={(e)=> console.log(e)}>s</button>
+            {/* <button onClick={(e)=> console.log(e)}>s</button>
            <Dropdown openID={openID} setOpenID={setOpenID} id={post.id} options={[{text: 'asd'}, {text: 'asd'}]}>
                <button>asd</button>
-           </Dropdown>
+           </Dropdown> */}
        </Envelope>
     );
 };

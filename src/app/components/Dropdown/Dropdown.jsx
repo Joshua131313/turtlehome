@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import Portal from '../Portal/Portal'
 import './Dropdown.css'
 
 const Dropdown = (props) => {
@@ -40,11 +41,10 @@ const Dropdown = (props) => {
       window.onclick = null
     }
   }, [openID, id])
-  
   return (
-    <div onClick={(e)=> {setOpenID(prev=> prev === id ? null : id); e.stopPropagation()}} className={`dropcont ${openID === id?'activedrop':''}`}>
+    <div onClick={(e)=> {setOpenID(prev=> prev === id ? null : id); e.stopPropagation(); }} className={`dropcont ${openID === id?'activedrop':''}`}>
       {props.children}
-      <div className="dropdown">
+      <div className="dropdown" >
           {optionsrow}
       </div>
     </div> 

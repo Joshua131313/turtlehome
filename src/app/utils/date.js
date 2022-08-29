@@ -39,13 +39,9 @@ export const getTimeAgo = (date) => {
     else if(seconds < 3600)
       return Math.floor(seconds / 60) + ` minute${addS(Math.floor(seconds / 60))} ago`
     else if(seconds < 86400)
-      return Math.floor(seconds / 3600) + ` hour${Math.floor(seconds / 3600)} ago`
+      return Math.floor(seconds / 3600) + ` hour${addS(seconds / 3600)} ago`
     else if(seconds < 604800) //if less than 3 days
       return Math.floor(seconds / 86400) + ` day${addS(Math.floor(seconds / 86400))} ago`
-    else if (seconds < 604800 * 4) 
-      return Math.floor(seconds/604800) + ` week${addS(Math.floor(seconds/604800))} ago`
-    else if(seconds < 604800 * 4 * 12) 
-      return Math.floor(seconds/(604800*4)) + ` year${addS(Math.floor(seconds/(604800*4)))} ago`
-    else
+    else 
       return convertClassicDate(date)
 }

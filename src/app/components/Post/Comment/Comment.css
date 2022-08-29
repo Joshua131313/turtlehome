@@ -36,3 +36,24 @@
 .innercommentcontrols span:hover, .innercommentcontrols .activelike {
     color: var(--theme-color);
 }
+.commentinput {
+    margin-top: 25px;
+    gap: 10px;
+    align-items: flex-start;
+}
+.commentinput .inputcont {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.commentinput textarea {
+    padding: 10px;
+    padding-right: 95px;
+    min-height: 35px;
+}
+.commentinput .imgloaded {
+    width: 30px;
+    height: 30px;
+}
