@@ -88,10 +88,11 @@ const Post = props => {
             <div className="posttext">
                 {post?.postContent.text}
             </div>
-            {post?.postContent.media &&
+            {post?.postContent.media.length ?
                 <div className="postmedia">
                     <MediaCarousel media={post?.postContent.media} />
                 </div>
+                : ''
             }
             <div className="postactiondetails">
                 <div className="likedbyrow flexrow ac">

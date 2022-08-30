@@ -18,7 +18,7 @@ const MediaCarousel = props => {
             )
         }
         else {
-            let src = media.downloadURL ?? media.preview
+            let src = media?.downloadURL ?? media?.preview
             return (
                 <div className={`${activeImg === i ? 'activethumbnail' : ''} thumbnail`} onClick={()=> setActiveImg(i)}>
                     <ImgLoaded img={src} className={`${activeImg === i ? 'activethumbnailimg ' : ''}`}/>
@@ -32,7 +32,7 @@ const MediaCarousel = props => {
 
         }
         else {
-            let src = activeMedia.downloadURL ?? activeMedia.preview
+            let src = activeMedia?.downloadURL ?? activeMedia?.preview
             return (
                 <div className="carouselimg" onClick={()=> setShowPopup(true)}>
                     {imgZoom ? 
