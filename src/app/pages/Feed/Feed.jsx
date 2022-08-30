@@ -73,7 +73,7 @@ const Feed = props => {
     })
 
     useEffect(()=> {
-       user &&  db.collectionGroup('posts').orderBy('datePosted', 'desc').limit(1).onSnapshot((snap)=> {
+       user &&  db.collectionGroup('posts').orderBy('datePosted', 'desc').onSnapshot((snap)=> {
             let posts = []
             snap.forEach((doc)=> {
                 posts.push(doc.data())
