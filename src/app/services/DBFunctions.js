@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 import { db } from '../../Fire';
+
 export const generateID = () => {
   return db.collection('users').doc().id
 }
@@ -90,8 +91,10 @@ export const GetFromDB = (collection, setState) => {
     setState(result)
   })
 }
+
 export const addReaction = (collection, reaction, isReacted) => {
   const user = firebase.auth().currentUser
+
   if(isReacted) {
       db.collection(collection).doc(user.uid).delete()
   }
@@ -102,4 +105,23 @@ export const addReaction = (collection, reaction, isReacted) => {
           user: user.uid
       })
   }
+}
+export const flagPost = (id, isFlagged) => {
+  const user = firebase.auth().currentUser
+
+  db.collection(`users/${user.uid}/posts`).doc(id).set({
+    flagged: !isFlagged
+  }, {mergeFields: true})
+}
+export const deletePost = (id) => {
+  const user = firebase.auth().currentUser
+
+  db.collection(`users/${user.uid}/posts`).doc(id).delete()
+}
+export const hidePost = (id, isVisible) => {
+  const user = firebase.auth().currentUser
+
+  db.collection(`users/${user.uid}/posts`).doc(id).set({
+    visible: !isVisible
+  }, {mergeFields: true})
 }

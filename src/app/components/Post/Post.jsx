@@ -13,7 +13,7 @@ import ReactTextareaAutosize from 'react-textarea-autosize';
 import AppBtn from '../AppBtn/AppBtn';
 import PostBtn from '../AppBtn/PostBtn';
 import CommentInput from './Comment/CommentInput';
-import { addReaction, generateID } from '../../services/DBFunctions';
+import { addReaction, deletePost, flagPost, generateID, hidePost } from '../../services/DBFunctions';
 import useGetPostComments from '../../services/GetPostComments';
 import Comments from './Comment/Comments';
 import useGetReactions from '../../services/GetReactions';
@@ -28,6 +28,7 @@ const Post = props => {
     const reactions = useGetReactions({collection: `/users/${post.postedBy}/posts/${post.id}/reactions`, limit: 3})
     const [showComments, setShowComments] = useState(false)
     const [comment, setComment] = useState('')
+    const [showEditPost, setShowEditPost] = useState(false)
     const ReactionIcon = ({reaction, text}) => {
         const isReacted = reactions.some(x=> x.user === user.uid && x.reaction === reaction)
         return (
@@ -37,7 +38,7 @@ const Post = props => {
            </div>
         )
     }
-    const handleReaction = (reaction, isReacted) => {
+    const handleReaction = (reaction='thumbs-up', isReacted) => {
         addReaction(`/users/${post.postedBy}/posts/${post.id}/reactions`, reaction, isReacted)
     }
     const sendComment = () => {
@@ -52,12 +53,13 @@ const Post = props => {
             setComment('')
         })
     }
-
     const reactionsRow = reactions?.map((reaction, i)=> {
         return (
             <div className="name flexrow" key={reaction.user}>
-                <i className={`likedby fa fa-${reaction.reaction}`}></i>
                 <AppUser userid={reaction.user} showImg={false}/>
+                <span>
+                    {reactions.length === 1 ? '' : (reactions.length === 2 && i === 0) ?  '&' : i === reactions.length - 1 ? '' : ','}
+                </span>
             </div>
         )
     }) 
@@ -72,9 +74,10 @@ const Post = props => {
                 </AppUser>
                 <Dropdown 
                     options={[
-                        {text: 'Report post', icon: 'fal fa-flag'},
-                        {text: 'Edit post', icon: 'fal fa-pencil'},
-                        {text: 'Delete post', icon: 'fal fa-trash'},
+                        {text: 'Report post', icon: 'fal fa-flag', onClick: ()=> flagPost(post.id, post.isFlagged)},
+                        {text: 'Edit post', icon: 'fal fa-pencil', onClick: ()=> setShowEditPost(!showEditPost)},
+                        {text: 'Hide post', icon: 'fal fa-eye-slash', onClick: ()=> hidePost(post.id)},
+                        {text: 'Delete post', icon: 'fal fa-trash', onClick: ()=> deletePost(post.id)},
                     ]} 
                     id={post.id} 
                     openID={openID} 
@@ -92,10 +95,15 @@ const Post = props => {
             }
             <div className="postactiondetails">
                 <div className="likedbyrow flexrow ac">
+                    {
+                      reactions.length >= 1 ?
+                      <i className={`likedby fa fa-thumbs-up`}></i>
+                      : ''
+                    }
                     {reactionsRow}
-                    {reactions.length >=1 ?
-                        <div className="name flexrow">  
-                            {reactions.length - 3 > 0 ? `+${reactions.length - 3}` : ''}
+                    {reactions.length - 3 > 0 ?
+                        <div className="name flexrow" style={{marginLeft: 4}}>  
+                            {`& ${reactions.length - 3} ${reactions.length - 3 === 1 ? ' other' : ' others'}`}
                          </div>
                          :''
                     }

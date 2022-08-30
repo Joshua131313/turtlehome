@@ -45,7 +45,7 @@
     justify-content: center;
     align-items: center;
 }
-.likedbyrow, .names, .count {
+ .names, .count {
     gap: 5px;
 }
 .likedby.fa-heart, .likedby.fa-thumbs-up{
