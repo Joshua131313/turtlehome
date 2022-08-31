@@ -7961,10 +7961,10 @@ react-fast-compare@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-image-zooom@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-image-zooom/-/react-image-zooom-1.0.4.tgz#710ab9c8e853f92d06d9d1f4aa0875d47165db09"
-  integrity sha512-Mqi++XgazQ1aG9P2rDprKTUQr/h/VNMrbNGIWtxfgi2dCI2oqI/Gx/9MP5nLyrWityzbGccxWZpuCj1DxAUo/Q==
+react-inner-image-zoom@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-inner-image-zoom/-/react-inner-image-zoom-3.0.2.tgz#4511fd80005f3dc4b73653ac4a9c67947ecac130"
+  integrity sha512-ICjyz0wdKmLufuQkUyg4iyP0yIF2elDeHjY1+S1pOKPggrW0g9V2SCmOSA39405ZX8GVVaxadmUYWwz3OF4V5A==
 
 react-instantsearch-core@6.31.1:
   version "6.31.1"

@@ -37,23 +37,27 @@ const Feed = props => {
     const clearFields = () => {
         setText('')
         setFiles([])
+        setLoading(false)
     }
 // files --> imgs
     const handleCreatePost = () => {
         let postID = generateID()
+        setLoading(true)
         uploadMultipleFilesToFireStorage(files, `${user.uid}/files`, setUploadProgress).then((imgURLS)=> {
             imgURLS.forEach(el=> {
                 AddToDB(`/users/${user.uid}/media`, {
                     media: el.downloadURL ? el.downloadURL :  el.preview,
                     postID: postID,
-                    fileType: el.fileType ? el.fileType : 'image'
-                }, clearFields)
+                    fileType: el.fileType ? el.fileType : 'image',
+                    mediaID: el.name
+                }, clearFields, el.name)
             })
             AddToDB(`/users/${user.uid}/posts`, {
                 postContent: {
                     media: imgURLS,
                     text,
                 },
+                commentCount: 0
             }, clearFields, postID)
         })
         .catch(err=> console.log(err))
@@ -71,9 +75,9 @@ const Feed = props => {
             <Post post={post} key={post.id} openID={openID} setOpenID={setOpenID}/>
         )
     })
-
+ 
     useEffect(()=> {
-       user &&  db.collectionGroup('posts').orderBy('datePosted', 'desc').onSnapshot((snap)=> {
+       user &&  db.collectionGroup('posts').where('hidden', '==', false).orderBy('datePosted', 'desc').onSnapshot((snap)=> {
             let posts = []
             snap.forEach((doc)=> {
                 posts.push(doc.data())
@@ -96,7 +100,7 @@ const Feed = props => {
                 <div className="selectmedia sb flexrow">
 
                     <UploadMedia files={files} setFiles={setFiles}/>
-                    <PostBtn value={text} onClick={()=> handleCreatePost()} />
+                    <PostBtn loading={loading} value={text} onClick={()=> handleCreatePost()} />
                 </div>
                 <SelectedImgs files={files} setFiles={setFiles} />
       

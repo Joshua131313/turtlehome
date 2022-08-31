@@ -7,7 +7,7 @@ const useGetPostComments = props => {
     const [comments, setComments] = useState([])
 
     useEffect(() => {
-        db.collection(`/users/${post.postedBy}/posts`).doc(post.id).collection('comments').onSnapshot(snapshot => {
+        db.collection(`/users/${post.postedBy}/posts`).doc(post.id).collection('comments').orderBy('datePosted', 'desc').onSnapshot(snapshot => {
             const comments = snapshot.docs.map(doc => doc.data())
             setComments(comments)
         })

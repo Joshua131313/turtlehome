@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ImgLoaded from '../Imgloaded/Imgloaded';
 import './MediaCarousel.css'
-import ImageZoom from "react-image-zooom";
 import Popup from '../Popup/Popup';
+import RenderPostMedia from './RenderPostMedia';
+import Slider from './Slider';
+
 const MediaCarousel = props => {
     const {media} = props
     const [activeImg, setActiveImg] = useState(0)
     const [showPopup, setShowPopup] = useState(false)
-
     const mediaRender = media?.map((media, i)=> {
         if(false) {
             return (
@@ -26,28 +27,8 @@ const MediaCarousel = props => {
             )
         }
     })
-    const RenderCarouselImg = ({imgZoom}) => {
-        let activeMedia = media[activeImg]
-        if (false) {
-
-        }
-        else {
-            let src = activeMedia?.downloadURL ?? activeMedia?.preview
-            return (
-                <div className="carouselimg" onClick={()=> setShowPopup(true)}>
-                    {imgZoom ? 
-                        <div className="imgloaded">
-                            <ImageZoom src={src} /> 
-                        </div>
-                        :
-                        <ImgLoaded img={src} />
-                    }
-                </div>
-            )
-        }
-    }
-    console.log(activeImg)
-    console.log(media.length - 1 === activeImg)
+ 
+   
     const handleNextPrev = (direction) => {
         //next
         if(direction === 'next') {
@@ -73,28 +54,9 @@ const MediaCarousel = props => {
 
     return (
         <div className='mediacarousel flexwrap flexrow'>
-            <RenderCarouselImg />
-            <i className="appicon fal fa-chevron-right next" onClick={()=> handleNextPrev('next')}></i>
-            <i className="appicon fal fa-chevron-left prev" onClick={()=> handleNextPrev()}></i>
-            <div className="thumbnails">
-                {mediaRender}
-            </div>
-            <Popup visible={showPopup} setVisible={setShowPopup} className='imagesliderpopup'>
-                {/* <div className="imagecontrols">
-                    <div className="controlsheader flexrow gap-10">
-                        <i className="fal fa-search appicon"></i>
-                        <i className="fal fa-search-minus appicon"></i>
-                        <i className="fal fa-search-plus appicon"></i>
-                    </div>
-                </div> */}
-                <div className="imgsection">
-                    <RenderCarouselImg imgZoom={true}/>
-                </div>
-                <i className="appicon fal fa-chevron-right next" onClick={()=> handleNextPrev('next')}></i>
-                <i className="appicon fal fa-chevron-left prev" onClick={()=> handleNextPrev()}></i>
-                <div className="thumbnails">
-                     {mediaRender}
-                </div>
+            <Slider length={media?.length} spec media={media[activeImg]} setShowPopup={setShowPopup} handleNextPrev={handleNextPrev} mediaRender={mediaRender}/>
+            <Popup visible={showPopup} setVisible={setShowPopup} className={`imagesliderpopup ${media?.length === 1 ? '' : 'gridview'}`}>
+                <Slider imgZoom={true} length={media?.length} media={media[activeImg]} setShowPopup={setShowPopup} handleNextPrev={handleNextPrev} mediaRender={mediaRender}/>
             </Popup>
         </div>
     );

@@ -24,8 +24,8 @@ export const convertClassicDate = (date, withTime) => {
     })
   })
 }
-const addS = (value) => {
-  if(value > 1) {
+export const addS = (value) => {
+  if(value > 1 || value == 0) {
     return 's'
   }
   return ''
@@ -39,7 +39,7 @@ export const getTimeAgo = (date) => {
     else if(seconds < 3600)
       return Math.floor(seconds / 60) + ` minute${addS(Math.floor(seconds / 60))} ago`
     else if(seconds < 86400)
-      return Math.floor(seconds / 3600) + ` hour${addS(seconds / 3600)} ago`
+      return Math.floor(seconds / 3600) + ` hour${addS(Math.floor(seconds / 3600))} ago`
     else if(seconds < 604800) //if less than 3 days
       return Math.floor(seconds / 86400) + ` day${addS(Math.floor(seconds / 86400))} ago`
     else 

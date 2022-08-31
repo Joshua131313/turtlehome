@@ -7,12 +7,20 @@ import Dropdown from '../Dropdown/Dropdown';
 import { addNotification } from '../../../Notification/Addnotification';
 import { StoreContext } from '../../../ContextAPI';
 import { isImage } from '../../utils/general';
+import { generateID } from '../../services/DBFunctions';
 
 const UploadMedia = props => {
     const {notifisystem} = useContext(StoreContext)
-    const {files, setFiles} = props
+    const {files, setFiles, limit=''} = props
     const [openID, setOpenID] = useState(null)
     const [dropZone, setDropZone] = useState(false)
+    const showNoti = () => {
+        addNotification({
+            msg: 'Maximum of 1 image allowed.',
+            icon: 'fa fa-exclamation-circle',
+            notifisystem
+        }, 5)
+    }
     const handleImgURL = () => {
         // addNotification({
         //     msg: 'Type Image URL...',
@@ -23,11 +31,15 @@ const UploadMedia = props => {
         //     notifisystem
         // }, 30)
         let img = prompt('Type Image URL...')
-        if(img !== '') {
-            setFiles(prev=> [{preview: img, isUrl: true}, ...prev])
+        if(files.length === 0 || limit !==1) {
+            if(img !== '') {
+                setFiles(prev=> [{preview: img, isUrl: true, name: generateID()}, ...prev])
+            }
+        }
+        else {
+            showNoti()
         }
     }
-    console.log(files)
 
     return (
         <>
@@ -36,7 +48,7 @@ const UploadMedia = props => {
         </Dropdown>
         <Popup className='imguploadpopup' visible={dropZone} setVisible={setDropZone}>
                 <h2>Upload Media</h2>
-                <DropZone setVisible={setDropZone}  files={files} setFiles={setFiles} />
+                <DropZone setVisible={setDropZone} enabled={files.length === 0 || limit !==1} files={files} setFiles={setFiles} showNoti={showNoti} limit={limit}/>
         </Popup>
         </>
     );

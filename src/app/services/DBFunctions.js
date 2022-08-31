@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 import { db } from '../../Fire';
-
+import { deleteMultipleStorageFiles, uploadMultipleFilesToFireStorage } from './storageServices'
 export const generateID = () => {
   return db.collection('users').doc().id
 }
@@ -106,22 +106,81 @@ export const addReaction = (collection, reaction, isReacted) => {
       })
   }
 }
-export const flagPost = (id, isFlagged) => {
+export const flagPost = (post) => {
   const user = firebase.auth().currentUser
 
-  db.collection(`users/${user.uid}/posts`).doc(id).set({
-    flagged: !isFlagged
-  }, {mergeFields: true})
+  db.collection(`users/${user.uid}/posts`).doc(post.id).set({
+    flagged: !post.flagged
+  }, {merge: true})
 }
-export const deletePost = (id) => {
+export const deletePost = (post) => {
   const user = firebase.auth().currentUser
-
-  db.collection(`users/${user.uid}/posts`).doc(id).delete()
+  post.postContent.media.forEach(media=> {
+    db.collection(`users/${user.uid}/media`).doc(media.name).delete()
+  })
+  db.collection(`users/${user.uid}/posts`).doc(post.id).delete().then(()=> {
+    deleteMultipleStorageFiles(post.postContent.media.filter(x=> x.downloadURL), `${user.uid}/files`)
+  })
 }
-export const hidePost = (id, isVisible) => {
+export const hidePost = (post) => {
   const user = firebase.auth().currentUser
 
-  db.collection(`users/${user.uid}/posts`).doc(id).set({
-    visible: !isVisible
-  }, {mergeFields: true})
+  db.collection(`users/${user.uid}/posts`).doc(post.id).set({
+    hidden: !post.hidden
+  }, {merge: true})
+}
+export const sendComment = (post, comment, setComment, files, setLoading) => {
+  const user = firebase.auth().currentUser
+  let id = generateID()
+  setLoading(true)
+  db.collection(`/users/${post.postedBy}/posts`).doc(post.id).set({
+    commentCount: post.commentCount + 1
+}, {merge: true})
+  uploadMultipleFilesToFireStorage(files, `${user.uid}/files`).then((media)=> {
+      db.collection(`/users/${post.postedBy}/posts`).doc(post.id).collection('comments').doc(id).set({
+        comment,
+        datePosted: new Date(),
+        postedBy: user.uid,
+        postId: post.id,
+        media: media[0] ?? '',
+        commentId: id,
+    }).then(()=> {
+        setComment()
+        setLoading(false)
+    })
+  })
+}
+export const deleteComment = (post, comment) => {
+  const user = firebase.auth().currentUser
+  db.collection(`users/${user.uid}/posts/${post.id}/comments`).doc(comment.commentId).delete().then(()=> {
+    deleteMultipleStorageFiles(comment.media?.filter(x=> x.downloadURL), `${user.uid}/files`)
+  })
+}
+export const handleReply = (post, comment, reply, setReply, files, setLoading) => {
+  const user = firebase.auth().currentUser
+  let id = generateID()
+  setLoading(true)
+  db.collection(`/users/${post.postedBy}/posts/${post.id}/comments`).doc(comment.commentId).set({
+    replyCount: post.replyCount + 1
+}, {merge: true})
+  uploadMultipleFilesToFireStorage(files, `${user.uid}/files`).then((media)=> {
+      db.collection(`/users/${post.postedBy}/posts/${post.id}/comments/${comment.commentId}/replies`).doc(id).set({
+        reply,
+        datePosted: new Date(),
+        postedBy: user.uid,
+        postId: post.id,
+        commentId: comment.commentId,
+        media: media[0] ?? '',
+        replyId: id,
+    }).then(()=> {
+       setReply()
+       setLoading(false)
+    })
+  })
+}
+export const handleLikeReply = () => {
+
+}
+export const deleteReply = () => {
+  
 }

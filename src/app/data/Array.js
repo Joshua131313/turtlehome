@@ -8,9 +8,9 @@ export const sideBarLinks = [
         link: ''
     },
     {
-        text: 'Photos',
+        text: 'Media',
         icon: 'image',
-        link: 'photos',
+        link: 'media',
     },
     {
         text: 'Reels',

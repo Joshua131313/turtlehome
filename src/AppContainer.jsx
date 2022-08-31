@@ -38,7 +38,7 @@ export const AppContainer = (props) => {
            {user ? 
           <Route path='/'  element={<Home />}>
              <Route index path='/' element={<Feed />}/>
-             <Route path='/photos'>
+             <Route path='/media'>
 
              </Route>
              <Route path='/reels'>

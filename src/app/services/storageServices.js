@@ -1,23 +1,25 @@
 import firebase from "firebase"
+import { generateID } from "./DBFunctions"
 
-export const uploadMultipleFilesToFireStorage = (files, storagePath, setUploadProgress, fileNamesArray) => {
+export const uploadMultipleFilesToFireStorage = (files, storagePath, setUploadProgress) => {
   return new Promise((resolve, reject) => {
     if(!files?.length) return resolve([])
     let urlImgs = files.filter(x=> x.isUrl)
     const imgURLs = [...urlImgs]
     files.filter(x=> !x.isUrl).forEach((file, i) => {
+      let id = generateID()
         const storageRef = firebase.storage().ref(storagePath)
-        const uploadTask = storageRef.child(!fileNamesArray ? file.name : fileNamesArray[i]).put(file)
+        const uploadTask = storageRef.child( id ).put(file)
         uploadTask.on('state_changed', (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          setUploadProgress(progress)
+          setUploadProgress?.(progress)
         }, (error) => {
           console.log(error)
           reject(error)
         }, () => {
           uploadTask.snapshot.ref.getDownloadURL()
           .then(downloadURL => {
-            imgURLs.push({downloadURL, fileType: file.type})
+            imgURLs.push({downloadURL, fileType: file.type, name: id})
             if (imgURLs.length === files.length) {
               resolve(imgURLs)
             }

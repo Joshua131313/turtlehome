@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { db } from '../../Fire';
 
 const useGetReactions = props => {
-    const {collection, limit} = props
+    const {collection, limit, comment} = props
     const [reactions, setReactions] = useState([])
 
     useEffect(()=> {
@@ -11,7 +11,7 @@ const useGetReactions = props => {
             const reactions = snapshot.docs.map(doc => doc.data())
             setReactions(reactions)
         })
-    }, [collection, limit])
+    }, [collection, limit, comment])
 
     return reactions
 };

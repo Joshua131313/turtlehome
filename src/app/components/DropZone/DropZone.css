@@ -19,6 +19,15 @@
     background-color: var(--light-theme-color);
     border: dashed 2px var(--theme-color);
 }
+.dropzonecont.disableddropzone:hover {
+    background-color: var(--red-bg);
+    border: dashed 2px var(--red);
+    color: var(--red);
+}
+
+.dropzonecont.disableddropzone:hover h3, .dropzonecont.disableddropzone:hover i, .dropzonecont.disableddropzone:hover span {
+    color: var(--red);
+}
 .dropzone  {
     padding: 10px;
     display: flex;
@@ -34,15 +43,18 @@
     color: var(--gray-text);
     font-size: 12px;
     margin-top: 10px;
+    transition: all 0.3s;
     display: block;
 }
 .dropzone i {
     font-size: 30px;
     color: var(--theme-color);
     margin-bottom: 20px;
+    transition: all 0.3s;
 }
 .dropzone h3 {
     color: var(--theme-color);
+    transition: all 0.3s;
 }
 .selectedimgs {
     display: flex;

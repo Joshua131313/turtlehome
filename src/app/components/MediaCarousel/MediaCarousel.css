@@ -4,7 +4,7 @@
     border-radius: 10px;
 }
 .mediacarousel .carouselimg {
-    height: 350px;
+    height: 450px;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -32,11 +32,27 @@
 .thumbnails .imgloaded {
     width: 60px;
     height: 60px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
+    background-color: transparent;
+}
+.thumbnails .imgloaded img {
+    border-radius: 5px;
 }
 .thumbnails .activethumbnailimg {
     border: solid 2px var(--theme-color);
+}
+.imagesliderpopup {
+    display: flex;
+    grid-template-rows: 1fr 70px;
+    gap: 10px;
+    overflow-y: auto;
+}
+.imagesliderpopup.gridview {
+    display: grid;
+}
+.imagesliderpopup::-webkit-scrollbar {
+    width: 0;
 }
 .mediacarousel .next, .mediacarousel .prev, .imagesliderpopup .next, .imagesliderpopup .prev {
     position: absolute;
@@ -63,10 +79,12 @@
 .imagesliderpopup .prev, .imagesliderpopup .next {
     opacity: 1;
     font-size: 44px;
-    left: 25px;
+    left: 30px;
+    transform: translateY(calc(-50% - 40px)) !important;
+
 }
 .imagesliderpopup .next {
-    right: 25px;
+    right: 30px;
     left: initial;
 }
 .imagesliderpopup .thumbnails {
@@ -75,7 +93,6 @@
     position: relative;
     width: 100%;
     justify-content: center;
-    margin-top: 10px;
 }
 .imagesliderpopup .thumbnails .imgloaded {
     width: 70px;
@@ -91,6 +108,8 @@
 .imagesliderpopup .carouselimg .imgloaded img {
     height: 100%;
     max-height: 65vh;
+    max-width: 400px;
+    object-fit: scale-down;
 
 }
 .controlsheader {

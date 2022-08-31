@@ -6,16 +6,17 @@ import AppBtn from '../AppBtn/AppBtn';
 import SelectedImgs from './SelectedImgs';
 
 const DropZone = props => {
-    const {files, setFiles, btntext='Done', setVisible} = props
+    const {files, setFiles, btntext='Done', setVisible, enabled, showNoti, limit} = props
     const {getRootProps, getInputProps, acceptedFiles} = useDropzone({
         noKeyboard: false, 
         accept: {'image/*': [], 'video/*': []},
+        disabled: !enabled,
         onDrop: acceptedFiles => {
-            setFiles(prev=> [...acceptedFiles.map(file => Object.assign(file, {
-              preview: URL.createObjectURL(file),
-              isVideo: file.type.includes('video')
-            })), ...prev]);
-          }
+              setFiles(prev=> [...acceptedFiles.map(file => Object.assign(file, {
+                preview: URL.createObjectURL(file),
+                isVideo: file.type.includes('video')
+              })), ...prev]);
+        }
     });
     // useEffect(()=> {        
     //     setFiles(prev=> [...prev, ...acceptedFiles])
@@ -23,12 +24,12 @@ const DropZone = props => {
 
     return (
         <>
-           <div className="dropzonecont">
+           <div className={`dropzonecont ${enabled ? '' : 'disableddropzone'}`}>
                 <div {...getRootProps({className: 'dropzone'})}>
                     <input {...getInputProps()} />
-                    <i className='fal fa-upload'></i>
-                   <h3>Drop Images & Videos Here</h3>
-                   <span>Drag and drop your imsges here.</span>
+                    <i className={enabled ? 'fal fa-upload' : 'fal fa-exclamation-circle'}></i>
+                   <h3>{enabled ? `Drop Images & Videos Here` : 'Maximum files reached'}</h3>
+                   <span>{enabled ? `Drag and drop your imsges here.` : `Only ${limit} ${limit === 1 ? 'file' : 'files'} allowed`}</span>
                 </div> 
                
            </div> 

@@ -8,13 +8,17 @@ const Comments = props => {
     const comments = useGetPostComments({post})
     const commentsrow = comments.map(comment=> {
         return (
-            <Comment comment={comment} />
+            <Comment comment={comment} post={post}/>
         )
     })
     return (
-        <div className='commentsrow flexcol'>
-            {commentsrow}
-        </div>
+       <>
+           {comments.length !== 0 ? 
+            <div className='commentsrow flexcol'>
+                {commentsrow}
+            </div>
+            : ''}
+        </>
     );
 };
 

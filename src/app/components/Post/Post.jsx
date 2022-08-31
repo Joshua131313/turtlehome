@@ -13,13 +13,13 @@ import ReactTextareaAutosize from 'react-textarea-autosize';
 import AppBtn from '../AppBtn/AppBtn';
 import PostBtn from '../AppBtn/PostBtn';
 import CommentInput from './Comment/CommentInput';
-import { addReaction, deletePost, flagPost, generateID, hidePost } from '../../services/DBFunctions';
+import { addReaction, deletePost, flagPost, generateID, hidePost, sendComment } from '../../services/DBFunctions';
 import useGetPostComments from '../../services/GetPostComments';
 import Comments from './Comment/Comments';
 import useGetReactions from '../../services/GetReactions';
 import Dropdown from '../Dropdown/Dropdown';
 import Drop from './Drop';
-import { getTimeAgo } from '../../utils/date';
+import { addS, getTimeAgo } from '../../utils/date';
 import MediaCarousel from '../MediaCarousel/MediaCarousel';
 
 const Post = props => {
@@ -29,6 +29,7 @@ const Post = props => {
     const [showComments, setShowComments] = useState(false)
     const [comment, setComment] = useState('')
     const [showEditPost, setShowEditPost] = useState(false)
+    const [loading, setLoading] = useState(false)
     const ReactionIcon = ({reaction, text}) => {
         const isReacted = reactions.some(x=> x.user === user.uid && x.reaction === reaction)
         return (
@@ -41,18 +42,7 @@ const Post = props => {
     const handleReaction = (reaction='thumbs-up', isReacted) => {
         addReaction(`/users/${post.postedBy}/posts/${post.id}/reactions`, reaction, isReacted)
     }
-    const sendComment = () => {
-        let id = generateID()
-        db.collection(`/users/${post.postedBy}/posts`).doc(post.id).collection('comments').doc(id).set({
-            comment,
-            datePosted: new Date(),
-            postedBy: user.uid,
-            postId: post.id,
-            commentId: id
-        }).then(()=> {
-            setComment('')
-        })
-    }
+ 
     const reactionsRow = reactions?.map((reaction, i)=> {
         return (
             <div className="name flexrow" key={reaction.user}>
@@ -74,10 +64,10 @@ const Post = props => {
                 </AppUser>
                 <Dropdown 
                     options={[
-                        {text: 'Report post', icon: 'fal fa-flag', onClick: ()=> flagPost(post.id, post.isFlagged)},
+                        {text: post.flagged ? 'Reported' : 'Report post', icon: 'fal fa-flag', onClick: ()=> flagPost(post)},
                         {text: 'Edit post', icon: 'fal fa-pencil', onClick: ()=> setShowEditPost(!showEditPost)},
-                        {text: 'Hide post', icon: 'fal fa-eye-slash', onClick: ()=> hidePost(post.id)},
-                        {text: 'Delete post', icon: 'fal fa-trash', onClick: ()=> deletePost(post.id)},
+                        {text: post.hidden ? 'Show post' : 'Hide post', icon: post.hidden ? 'fal fa-eye' : 'fal fa-eye-slash', onClick: ()=> hidePost(post)},
+                        {text: 'Delete post', icon: 'fal fa-trash', onClick: ()=> deletePost(post)},
                     ]} 
                     id={post.id} 
                     openID={openID} 
@@ -110,8 +100,10 @@ const Post = props => {
                     }
                 </div>
                 <div className="count flexrow">
-                    <div className="commentscount">26 comments</div>
-                    <div className="sharescount">100 shares</div>
+                    <div className="commentscount">
+                        <small>{post.commentCount} {`comment${addS(post.commentCount)}`}</small>
+                    </div>
+                    {/* <div className="sharescount">100 shares</div> */}
                 </div>
             </div>
             <div className="postcontrols">
@@ -130,8 +122,8 @@ const Post = props => {
             </div>
             {
             showComments && 
-                <div className="commentssection">
-                    <CommentInput value={comment} onClick={()=> sendComment()} setValue={setComment} />
+                <div className="commentssection selectmedia">
+                    <CommentInput loading={loading} text='Comment' value={comment} onClick={(files)=> sendComment(post, comment, ()=> {setComment('');}, files, (val)=> setLoading(val))} setValue={setComment} />
                     <Comments post={post}/>
                 </div>
             }
