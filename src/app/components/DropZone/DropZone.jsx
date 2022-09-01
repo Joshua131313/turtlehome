@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {useDropzone} from 'react-dropzone';
 import './DropZone.css'
 import AppBtn from '../AppBtn/AppBtn';
 import SelectedImgs from './SelectedImgs';
+import { StoreContext } from '../../../ContextAPI';
 
 const DropZone = props => {
+  const {addNoti} = useContext(StoreContext)
     const {files, setFiles, btntext='Done', setVisible, enabled, showNoti, limit} = props
     const {getRootProps, getInputProps, acceptedFiles} = useDropzone({
         noKeyboard: false, 
         accept: {'image/*': [], 'video/*': []},
         disabled: !enabled,
+        maxSize: 3000000,
+        onError: (err) => console.log(err.message),
+        onDropRejected: (err) => addNoti(err.length > 1 ? 'Files are larger than 3 MB.' : "File is larger than 3 MB.", 'fal fa-exclamation-circle'),
         onDrop: acceptedFiles => {
               setFiles(prev=> [...acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file),

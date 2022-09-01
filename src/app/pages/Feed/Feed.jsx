@@ -49,7 +49,7 @@ const Feed = props => {
                     media: el.downloadURL ? el.downloadURL :  el.preview,
                     postID: postID,
                     fileType: el.fileType ? el.fileType : 'image',
-                    mediaID: el.name
+                    mediaID: el.name,
                 }, clearFields, el.name)
             })
             AddToDB(`/users/${user.uid}/posts`, {
@@ -57,6 +57,7 @@ const Feed = props => {
                     media: imgURLS,
                     text,
                 },
+                hidden: false,
                 commentCount: 0
             }, clearFields, postID)
         })

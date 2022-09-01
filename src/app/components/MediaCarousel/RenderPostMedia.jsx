@@ -8,8 +8,13 @@ const RenderPostMedia = (props) => {
     const [med, setMed] = useState(media)
 
     
-    if (false) {
-
+    if (media?.fileType?.includes('video')) {
+        let src = media?.downloadURL
+        return (
+            <div className="carouselimg carouselvid">
+                <video src={src} controls={1}></video>
+            </div>
+        )
     }
     else {
         let src = media?.downloadURL ?? media?.preview

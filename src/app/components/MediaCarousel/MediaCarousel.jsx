@@ -11,10 +11,10 @@ const MediaCarousel = props => {
     const [activeImg, setActiveImg] = useState(0)
     const [showPopup, setShowPopup] = useState(false)
     const mediaRender = media?.map((media, i)=> {
-        if(false) {
+        if(media.fileType?.includes('video')) {
             return (
-                <div className="carouselitem">
-                     <ImgLoaded img={media.preview}/>
+                <div className={`${activeImg === i ? 'activethumbnail' : ''} thumbnail`} onClick={()=> setActiveImg(i)}>
+                    <video src={media.downloadURL} controls={false}  frameborder="0"></video>
                 </div>
             )
         }
