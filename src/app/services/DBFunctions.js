@@ -124,9 +124,24 @@ export const deletePost = (post) => {
 }
 export const hidePost = (post) => {
   const user = firebase.auth().currentUser
-
+  if(post.hiddenBy?.includes(user.uid)) {
+    db.collection(`users/${user.uid}/posts`).doc(post.id).set({
+        hiddenBy: post.hiddenBy.filter(x=> x !== user.uid)
+    }, {merge: true})
+  }
+  else {
+    db.collection(`users/${user.uid}/posts`).doc(post.id).set({
+      hiddenBy: post.hiddenBy.push(user.uid)
+    }, {merge: true})
+  }
+  // db.collection(`users/${user.uid}/posts`).doc(post.id).set({
+  //   hidden: !post.hidden
+  // }, {merge: true})
+}
+export const privatePost = (post) => {
+  const user = firebase.auth().currentUser
   db.collection(`users/${user.uid}/posts`).doc(post.id).set({
-    hidden: !post.hidden
+    private: !post.hidden
   }, {merge: true})
 }
 export const sendComment = (post, comment, setComment, files, setLoading) => {

@@ -57,7 +57,8 @@ const Feed = props => {
                     media: imgURLS,
                     text,
                 },
-                hidden: false,
+                hiddenBy: [],
+                private: false,
                 commentCount: 0
             }, clearFields, postID)
         })
@@ -78,7 +79,7 @@ const Feed = props => {
     })
  
     useEffect(()=> {
-       user &&  db.collectionGroup('posts').where('hidden', '==', false).orderBy('datePosted', 'desc').onSnapshot((snap)=> {
+       user &&  db.collectionGroup('posts').where('private', '==', false).orderBy('datePosted', 'desc').onSnapshot((snap)=> {
             let posts = []
             snap.forEach((doc)=> {
                 posts.push(doc.data())

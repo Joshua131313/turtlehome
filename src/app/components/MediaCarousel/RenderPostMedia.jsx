@@ -4,7 +4,7 @@ import ImgLoaded from '../Imgloaded/Imgloaded';
 import ImgZoom from '../Imgloaded/ImgZoom';
 
 const RenderPostMedia = (props) => {
-    const {media, imgZoom, setShowPopup, scale} = props
+    const {media, imgZoom, setShowPopup, scale, setZoomed} = props
     const [med, setMed] = useState(media)
 
     
@@ -21,7 +21,7 @@ const RenderPostMedia = (props) => {
         return (
             <div className="carouselimg" onClick={()=> setShowPopup?.(true)}>
                 {imgZoom ? 
-                    <ImgZoom img={src} scale={scale}/>
+                    <ImgZoom img={src} scale={scale} setZoomed={setZoomed}/>
                     :
                     <ImgLoaded img={src} />
                 }

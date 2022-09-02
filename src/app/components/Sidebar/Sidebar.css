@@ -1,12 +1,10 @@
-.gridlayout > div {
-    background-color: transparent;
-    max-height: 100vh;
-}
+
 .sidebar {
     overflow-y: auto;
     display: grid;
     grid-template-rows: 200px 2fr 1.2fr;
     border-radius: 0;
+    max-height: 100vh;
     box-shadow: var(--card-shadow);
 }
 .sidebar .envelope {
@@ -107,3 +105,57 @@
     right: initial;
     left: 30px;
 } */
+@media (max-width: 800px) {
+    .sidebar h3 {
+        font-size: 1em;
+    }
+    .notificationcard {
+        height: 40px;
+    }
+    .sidebarlink {
+        padding: 10px 8px;
+    }
+    .sidebarlink i {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        z-index: 1000;
+        flex-direction: row;
+        display: flex;
+        height: 70px;
+        width: calc(100% - 40px);
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 10px 10px 0 0;
+    }
+    .sidebar .sidebarcont, .sidebar .notificationspreview {
+        display: none;
+    }
+    .sidebar .sidebarlinksrow {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        border: none;
+    }
+    .sidebarlinksrow .sidebarlink {
+        background-color: transparent;
+        box-shadow: none;
+        padding: initial;
+        width: 35px;
+        height: 35px;
+    }
+    .activelink i {
+        background-color: var(--theme-color);
+        color: #fff;
+    }
+    .sidebarlinksrow .sidebarlink span {
+        display: none;
+    }
+}

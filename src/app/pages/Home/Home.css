@@ -41,3 +41,18 @@
         grid-template-columns: 300px 1fr;
     }
 }
+@media (max-width: 800px) {
+    .gridlayout {
+        grid-template-columns: 200px 1fr;
+    }
+}
+@media (max-width: 600px) {
+ .gridlayout {
+    display: flex;
+    flex-direction: column;
+ }   
+ .gridlayout .rightbar {
+     display: none;
+ }
+
+}

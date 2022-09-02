@@ -13,7 +13,7 @@ import ReactTextareaAutosize from 'react-textarea-autosize';
 import AppBtn from '../AppBtn/AppBtn';
 import PostBtn from '../AppBtn/PostBtn';
 import CommentInput from './Comment/CommentInput';
-import { addReaction, deletePost, flagPost, generateID, hidePost, sendComment } from '../../services/DBFunctions';
+import { addReaction, deletePost, flagPost, generateID, hidePost, privatePost, sendComment } from '../../services/DBFunctions';
 import useGetPostComments from '../../services/GetPostComments';
 import Comments from './Comment/Comments';
 import useGetReactions from '../../services/GetReactions';
@@ -66,7 +66,8 @@ const Post = props => {
                     options={[
                         {text: post.flagged ? 'Reported' : 'Report post', icon: 'fal fa-flag', onClick: ()=> flagPost(post)},
                         {text: 'Edit post', icon: 'fal fa-pencil', onClick: ()=> setShowEditPost(!showEditPost)},
-                        {text: post.hidden ? 'Show post' : 'Hide post', icon: post.hidden ? 'fal fa-eye' : 'fal fa-eye-slash', onClick: ()=> hidePost(post)},
+                        {text: post.hiddenBy?.includes(user.uid) ? 'Show post' : 'Hide post', icon: post.hiddenBy?.includes(user.uid) ? 'fal fa-eye' : 'fal fa-eye-slash', onClick: ()=> hidePost(post)},
+                        {text: post.private ? 'Show post' : 'Private post', icon: 'fal fa-shield-check', onClick: ()=> privatePost(post)},
                         {text: 'Delete post', icon: 'fal fa-trash', onClick: ()=> deletePost(post)},
                     ]} 
                     id={post.id} 
@@ -115,7 +116,7 @@ const Post = props => {
                         <span>Comment</span>
                     </div>
                 </div>
-                <div className="share flexrow ac gap-5">
+                <div className="share flexrow ac gap-5" onClick={()=> navigator.share({url: 'rest.com'})}>
                     <i className="fa fa-share"></i>
                     <span>Share</span>
                 </div>
