@@ -55,7 +55,7 @@ export const Register = (props) => {
     <AuthContainer title='Register'
       btnText1={{
         text: 'Already have an account?',
-        link: '/login' 
+        link: '/' 
       }}
       mainBtn={{
         text: 'Register',
