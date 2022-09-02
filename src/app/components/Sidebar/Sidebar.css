@@ -1,10 +1,11 @@
-
+.gridlayout > div {
+    max-height: 100vh;
+}
 .sidebar {
     overflow-y: auto;
     display: grid;
     grid-template-rows: 200px 2fr 1.2fr;
     border-radius: 0;
-    max-height: 100vh;
     box-shadow: var(--card-shadow);
 }
 .sidebar .envelope {
