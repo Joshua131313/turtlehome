@@ -272,9 +272,16 @@
       display: flex;
     }
   }
+  @media (max-width: 600px) {
+    .navbar {
+      width: calc(100% - 40px);
+      position: fixed;
+    }
+  }
   @media (max-width: 450px) {
     .menubars  {
       width: 40px;
     }
   }
+
   
