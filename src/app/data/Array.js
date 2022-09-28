@@ -9,6 +9,11 @@ export const sideBarLinks = [
         index: true
     },
     {
+        text: 'Chats',
+        icon: 'comment',
+        link: 'chats'
+    },
+    {
         text: 'Media',
         icon: 'image',
         link: 'media',
@@ -19,11 +24,6 @@ export const sideBarLinks = [
         link: 'reels',
     },
     {
-        text: 'Market',
-        icon: 'comment-alt-dollar',
-        link: 'market',
-    },
-    {
         text: 'Events',
         icon: 'calendar',
         link: 'events',
@@ -32,5 +32,10 @@ export const sideBarLinks = [
         text: 'Friends',
         icon: 'user-friends',
         link: 'friends',
+    },
+    {
+        text: 'Apps',
+        icon: 'computer-classic',
+        link: 'apps'
     }
 ]

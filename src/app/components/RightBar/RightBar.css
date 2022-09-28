@@ -1,4 +1,32 @@
 .rightbar {
     background-color: #fff;
     box-shadow: var(--card-shadow);
+    padding: 20px;
+}
+.rightbar h3 {
+    color: var(--theme-color);
+}
+.friendsrender {
+    margin-top: 20px;
+}
+.friendcard {
+    background-color: var(--gray-bg);
+    padding: 10px;
+    border-radius: 10px;
+}
+.friendcard .activetimeago {
+    color: var(--gray-text);
+    font-size: 10px;
+}
+.friendcard .imgloaded {
+    width: 40px;
+    height: 40px;
+}
+.friendcard span {
+    color: var(--theme-color);
+}
+@media (max-width: 1000px) {
+    .rightbar {
+        display: none;
+    }
 }

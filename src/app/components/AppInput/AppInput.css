@@ -13,3 +13,8 @@ input {
     background-color: #fff;
     padding: 10px 15px;
 }
+.appinput span {
+    color: var(--gray-text);
+    margin-bottom: 4px;
+    display: flex;
+}

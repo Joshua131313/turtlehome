@@ -5,9 +5,10 @@ import './MediaCarousel.css'
 import Popup from '../Popup/Popup';
 import RenderPostMedia from './RenderPostMedia';
 import Slider from './Slider';
+import PopupSlider from './PopupSlider';
 
 const MediaCarousel = props => {
-    const {media} = props
+    const {media, post} = props
     const [activeImg, setActiveImg] = useState(0)
     const [showPopup, setShowPopup] = useState(false)
     const mediaRender = media?.map((media, i)=> {
@@ -56,8 +57,9 @@ const MediaCarousel = props => {
         <div className='mediacarousel flexwrap flexrow'>
             <Slider length={media?.length} spec media={media[activeImg]} setShowPopup={setShowPopup} handleNextPrev={handleNextPrev} mediaRender={mediaRender}/>
             <Popup visible={showPopup} setVisible={setShowPopup} className={`imagesliderpopup ${media?.length === 1 ? '' : 'gridview'}`}>
-                <Slider imgZoom={true} length={media?.length} media={media[activeImg]} setShowPopup={setShowPopup} handleNextPrev={handleNextPrev} mediaRender={mediaRender}/>
+                <Slider allMedia={media} post={post} imgZoom={true} length={media?.length} media={media[activeImg]} setShowPopup={setShowPopup} handleNextPrev={handleNextPrev} mediaRender={mediaRender}/>
             </Popup>
+            <PopupSlider showPopup={showPopup} setShowPopup={setShowPopup} media={media} handleNextPrev={handleNextPrev} mediaRender={mediaRender} post={post} activeImg={activeImg}/>
         </div>
     );
 };

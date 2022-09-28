@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import Portal from '../Portal/Portal'
 import './Dropdown.css'
+import { Link } from 'react-router-dom';
 
 const Dropdown = (props) => {
   const {options, openID, setOpenID, id} = props
+  const elPos = useRef()
   const optionsrow = options.map((option, i)=> {
     if(option.download) {
       return (
@@ -20,6 +22,14 @@ const Dropdown = (props) => {
           <i className={option.icon}></i>
           <span>{option.text}</span>
        </label>
+      )
+    }
+    else if(option.link) {
+      return (
+        <Link key={i} to={option.link} className='dropoption'>
+          <i className={option.icon}></i>
+          <span>{option.text}</span>
+       </Link>
       )
     }
     else {

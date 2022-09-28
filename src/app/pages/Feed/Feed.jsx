@@ -7,7 +7,7 @@ import TextArea from '../../components/AppInput/TextArea';
 import { User } from '../../components/User/User';
 import AppBtn from '../../components/AppBtn/AppBtn';
 import { uploadImgur } from '../../utils/uploadToImgur';
-import { AddToDB, generateID } from '../../services/DBFunctions';
+import { AddToDB, createImgDoc, generateID } from '../../services/DBFunctions';
 import { StoreContext } from '../../../ContextAPI';
 import { db } from '../../../Fire';
 import Dropdown from '../../components/Dropdown/Dropdown';
@@ -43,14 +43,15 @@ const Feed = props => {
     const handleCreatePost = () => {
         let postID = generateID()
         setLoading(true)
-        uploadMultipleFilesToFireStorage(files, `${user.uid}/files`, setUploadProgress).then((imgURLS)=> {
+        uploadMultipleFilesToFireStorage(files, `${user.uid}/files`, (value)=>setUploadProgress(value)).then((imgURLS)=> {
             imgURLS.forEach(el=> {
-                AddToDB(`/users/${user.uid}/media`, {
-                    media: el.downloadURL ? el.downloadURL :  el.preview,
-                    postID: postID,
-                    fileType: el.fileType ? el.fileType : 'image',
-                    mediaID: el.name,
-                }, clearFields, el.name)
+                createImgDoc(el, 'postsMediaAlbum', postID)
+                // AddToDB(`/users/${user.uid}/albums`, {
+
+                // }, clearFields, el.name)
+            })
+            db.collection(`/users/${user.uid}/albums`).doc('postsMediaAlbum').update({
+                albumLength: firebase.firestore.FieldValue.increment(imgURLS.length)
             })
             AddToDB(`/users/${user.uid}/posts`, {
                 postContent: {
@@ -61,8 +62,8 @@ const Feed = props => {
                 private: false,
                 commentCount: 0
             }, clearFields, postID)
-        })
-        .catch(err=> console.log(err))
+        }).then(()=> {clearFields()})
+        .catch(err=>setLoading(false))
         // let imgID = generateID()
 
         // const array = [{name: 'd'}]

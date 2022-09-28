@@ -81,7 +81,7 @@ const Post = props => {
             </div>
             {post?.postContent.media.length ?
                 <div className="postmedia">
-                    <MediaCarousel media={post?.postContent.media} />
+                    <MediaCarousel post={post} media={post?.postContent.media} />
                 </div>
                 : ''
             }

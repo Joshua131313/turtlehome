@@ -4,7 +4,7 @@
 .appbtn {
   background-color: var(--theme-color);
   color: #fff;
-  padding: 4px 10px;
+  padding: 8px 16px;
   transition: all 0.3s;
   font-size: 13px;
   gap: 10px;

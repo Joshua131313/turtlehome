@@ -14,7 +14,7 @@ const SelectedImgs = props => {
     return (
         <div className="selectedimgs">
         {
-            props.files.map((file, i)=> {
+            props.files?.map((file, i)=> {
                 if(file.isVideo) {
                     return (
                         <div className="imgcont">

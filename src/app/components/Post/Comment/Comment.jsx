@@ -32,7 +32,7 @@ const Comment = props => {
                     <div className="innercommentbubble flexcol">
                         <span>{userInfo.name}</span>
                         {comment.comment}
-                        {comment?.media && <RenderPostMedia media={comment?.media} />}
+                        {comment?.media && <RenderPostMedia  media={comment?.media} />}
                     </div>
                     <div className="commentcontrols flexrow sb ac">
                         <span>{getTimeAgo(comment?.datePosted?.toDate())}</span>

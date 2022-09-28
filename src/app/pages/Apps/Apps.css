@@ -1,0 +1,37 @@
+.appcard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    gap: 10px;
+    width: 120px;
+    color: var(--gray-text);
+    cursor: pointer;
+}
+.appcard img {
+    
+}
+.iconsection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.iconsection i {
+    font-size: 50px;
+    color: var(--theme-color);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+}
+.innerappsrender {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}

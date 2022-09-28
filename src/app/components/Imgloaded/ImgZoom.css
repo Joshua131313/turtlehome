@@ -5,7 +5,11 @@
     overflow:hidden;
     display:inline-block;
     cursor:-webkit-zoom-in;
-    cursor:zoom-in
+    cursor:zoom-in;
+    height: 100%;
+}
+.iiz div {
+    height: 100%;
 }
 .iiz--drag .iiz__zoom-img--visible{
     cursor:-webkit-grab;
@@ -18,8 +22,7 @@
     pointer-events:none;
     visibility:visible;
     opacity:1;
-    max-height: 60vh;
-    object-fit: scale-down;
+    height: 100%;
 }
 .iiz__img--hidden{
     visibility:hidden;

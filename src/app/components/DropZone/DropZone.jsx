@@ -8,11 +8,11 @@ import { StoreContext } from '../../../ContextAPI';
 
 const DropZone = props => {
   const {addNoti} = useContext(StoreContext)
-    const {files, setFiles, btntext='Done', setVisible, enabled, showNoti, limit} = props
+    const {files, setFiles, btntext='Done', setVisible, disabled, showNoti, limit, hideBtn} = props
     const {getRootProps, getInputProps, acceptedFiles} = useDropzone({
         noKeyboard: false, 
         accept: {'image/*': [], 'video/*': []},
-        disabled: !enabled,
+        disabled: limit == files?.length,
         maxSize: 3000000,
         onError: (err) => console.log(err.message),
         onDropRejected: (err) => addNoti(err.length > 1 ? 'Files are larger than 3 MB.' : "File is larger than 3 MB.", 'fal fa-exclamation-circle'),
@@ -29,19 +29,19 @@ const DropZone = props => {
 
     return (
         <>
-           <div className={`dropzonecont ${enabled ? '' : 'disableddropzone'}`}>
+           <div className={`dropzonecont ${(!disabled && limit !== files?.length) ? '' : 'disableddropzone'}`}>
                 <div {...getRootProps({className: 'dropzone'})}>
                     <input {...getInputProps()} />
-                    <i className={enabled ? 'fal fa-upload' : 'fal fa-exclamation-circle'}></i>
-                   <h3>{enabled ? `Drop Images & Videos Here` : 'Maximum files reached'}</h3>
-                   <span>{enabled ? `Drag and drop your imsges here.` : `Only ${limit} ${limit === 1 ? 'file' : 'files'} allowed`}</span>
+                    <i className={(!disabled && limit !== files?.length) ? 'fal fa-upload' : 'fal fa-exclamation-circle'}></i>
+                   <h3>{(!disabled && limit !== files?.length) ? `Drop Images & Videos Here` : 'Maximum files reached'}</h3>
+                   <span>{(!disabled && limit !== files?.length) ? `Drag and drop your imsges here.` : `Only ${limit} ${limit === 1 ? 'file' : 'files'} allowed`}</span>
                 </div> 
                
            </div> 
            <SelectedImgs files={files} setFiles={setFiles} />
-           <div className="flexrow fe">
+           {!hideBtn && <div className="flexrow fe">
              <AppBtn text={btntext} icon='fal fa-upload' onClick={()=> setVisible(false)}/>
-           </div>
+           </div>}
            </>
     );
 };

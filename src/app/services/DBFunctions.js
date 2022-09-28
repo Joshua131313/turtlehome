@@ -9,13 +9,20 @@ export const createUserCollection = (userid, name, email, profilePic='', phoneNu
     created: new Date(),
     uid: userid,
     name: name,
-    searchName: name.replace(/\s/gm, '').toLowerCase(),
+    searchName: name.toLowerCase(),
     userinfo: {
       profilePic: profilePic,
       phoneNumber: phoneNumber,
       email: email
     },
     provider
+  }).then(()=> {
+    db.collection('users').doc(userid).collection('albums').doc('postsMediaAlbum').set({
+      albumName: 'Posts Album',
+      dateCreated: new Date(),
+      albumId: 'postsMediaAlbum',
+      albumLength: 0
+    })
   })
 }
 
@@ -72,7 +79,7 @@ export const AddToDB = (collection, value, clearFields, cID) => {
     postedBy: user.uid,
     datePosted: new Date(),
   })
-  db.collection(collection).doc(id).set(result).then(()=> {clearFields()})
+  db.collection(collection).doc(id).set(result).then(()=> {clearFields?.()})
   return id
 }
 
@@ -116,11 +123,12 @@ export const flagPost = (post) => {
 export const deletePost = (post) => {
   const user = firebase.auth().currentUser
   post.postContent.media.forEach(media=> {
-    db.collection(`users/${user.uid}/media`).doc(media.name).delete()
+    db.collection(`users/${user.uid}/albums`).doc('postsMediaAlbum').collection('media').doc(media.name).delete()
   })
-  db.collection(`users/${user.uid}/posts`).doc(post.id).delete().then(()=> {
-    deleteMultipleStorageFiles(post.postContent.media.filter(x=> x.downloadURL), `${user.uid}/files`)
-  })
+  db.collection(`users/${user.uid}/posts`).doc(post.id).delete()
+  // .then(()=> {
+  //   deleteMultipleStorageFiles(post.postContent.media.filter(x=> x.downloadURL), `${user.uid}/files`)
+  // })
 }
 export const hidePost = (post) => {
   const user = firebase.auth().currentUser
@@ -188,7 +196,7 @@ export const handleReply = (post, comment, reply, setReply, files, setLoading) =
         media: media[0] ?? '',
         replyId: id,
     }).then(()=> {
-       setReply()
+       setReply('')
        setLoading(false)
     })
   })
@@ -198,4 +206,47 @@ export const handleLikeReply = () => {
 }
 export const deleteReply = () => {
   
+}
+export const createImgDoc = (el, doc, postID='') => {
+  const user = firebase.auth().currentUser
+
+  db.collection(`/users/${user.uid}/albums`).doc(doc).collection('media').doc(el.name).set(
+    {
+        media: el.downloadURL ? el.downloadURL :  el.preview,
+        postID: postID,
+        fileType: el.fileType ? el.fileType : 'image',
+        mediaID: el.name,
+        fileInfo: el.fileInfo,
+        postedBy: user.uid
+    }
+  )
+}
+export const addAlbum = (files, name, navigate) => {
+  const user = firebase.auth().currentUser
+  const id = generateID()
+  uploadMultipleFilesToFireStorage(files, `users/${user.uid}`).then(media=> {
+      db.collection(`/users/${user.uid}/albums`).doc(id).set({
+        albumName: name,
+        albumId: id,
+        dateCreated: new Date(),
+        albumLength: media.length
+      }).then(()=> {
+        media?.forEach(el=> {
+          createImgDoc(el, id)
+        })
+        navigate()
+      })
+    })
+}
+export const blockUser = (userid, isBlocked) => {
+  const user = firebase.auth().currentUser
+  if(isBlocked) {
+    db.collection('users').doc(user.uid).collection('blockedUsers').doc(userid).delete()
+  }
+  else {
+    db.collection('users').doc(user.uid).collection('blockedUsers').doc(userid).set({
+      uid: userid,
+      date: new Date()
+    })
+  }
 }

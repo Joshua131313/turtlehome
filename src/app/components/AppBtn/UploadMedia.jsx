@@ -10,7 +10,7 @@ import { isImage } from '../../utils/general';
 import { generateID } from '../../services/DBFunctions';
 
 const UploadMedia = props => {
-    const {notifisystem} = useContext(StoreContext)
+    const {notifisystem, user} = useContext(StoreContext)
     const {files, setFiles, limit=''} = props
     const [openID, setOpenID] = useState(null)
     const [dropZone, setDropZone] = useState(false)
@@ -33,7 +33,7 @@ const UploadMedia = props => {
         let img = prompt('Type Image URL...')
         if(files.length === 0 || limit !==1) {
             if(img !== '') {
-                setFiles(prev=> [{preview: img, isUrl: true, name: generateID()}, ...prev])
+                setFiles(prev=> [{preview: img, isUrl: true, name: generateID(), postedBy: user.uid}, ...prev])
             }
         }
         else {
@@ -48,7 +48,7 @@ const UploadMedia = props => {
         </Dropdown>
         <Popup className='imguploadpopup' visible={dropZone} setVisible={setDropZone}>
                 <h2>Upload Media</h2>
-                <DropZone setVisible={setDropZone} enabled={files.length === 0 || limit !==1} files={files} setFiles={setFiles} showNoti={showNoti} limit={limit}/>
+                <DropZone setVisible={setDropZone} files={files} setFiles={setFiles} showNoti={showNoti} limit={limit}/>
         </Popup>
         </>
     );

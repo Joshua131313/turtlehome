@@ -2,6 +2,7 @@ import firebase from "firebase"
 import { generateID } from "./DBFunctions"
 
 export const uploadMultipleFilesToFireStorage = (files, storagePath, setUploadProgress) => {
+  const user = firebase.auth().currentUser
   return new Promise((resolve, reject) => {
     if(!files?.length) return resolve([])
     let urlImgs = files.filter(x=> x.isUrl)
@@ -19,7 +20,7 @@ export const uploadMultipleFilesToFireStorage = (files, storagePath, setUploadPr
         }, () => {
           uploadTask.snapshot.ref.getDownloadURL()
           .then(downloadURL => {
-            imgURLs.push({downloadURL, fileType: file.type, name: id})
+            imgURLs.push({downloadURL, fileType: file.type, name: id, postedBy: user.uid, fileInfo: {size: file.size, name: file.name, lastModified: file.lastModified}})
             if (imgURLs.length === files.length) {
               resolve(imgURLs)
             }

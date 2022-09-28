@@ -1,5 +1,11 @@
 .layout {
-   top: var(--nav-height);
+   /* top: var(--nav-height);
    height: calc(100vh - var(--nav-height));
-   padding: 40px;
+   padding: 40px; */
+   padding: 0 20px;
+}
+@media (max-width: 600px) {
+   .layout {
+      padding-top: 75px;
+   }
 }

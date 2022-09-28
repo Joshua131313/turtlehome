@@ -5,11 +5,10 @@ import './User.css'
 import ImgLoaded from '../Imgloaded/Imgloaded';
 
 const AppUser = props => {
-    const {userid, showImg=true, showText=true} = props 
-    const userInfo = useGetUserInfo(userid) 
-     
+    const {showImg=true, showText=true} = props 
+    const userInfo = useGetUserInfo(props.userid) 
     return (
-        <div  className="user flexrow ac" >
+        <div  className="user flexrow ac gap-5" >
             {showImg && <ImgLoaded img={userInfo?.userinfo?.profilePic}/>}
              {showText && <div className="flexcol">
                  <span>{userInfo?.name}</span>
