@@ -4,6 +4,7 @@ import AuthContainer from '../containers/AuthContainer/AuthContainer'
 import firebase from 'firebase'
 import { createUserCollection } from '../services/DBFunctions'
 import { useNavigate } from 'react-router-dom'
+import { db } from '../../Fire'
 
 export const Register = (props) => {
   const {setUser} = useContext(StoreContext)
@@ -44,6 +45,7 @@ export const Register = (props) => {
           createUserCollection(user.uid, name, email)
           navigate('/', {replace: true})
           setUser(user)
+          db.collection('users').doc(user.uid).set({lastActive: 'Now'}, {merge: true})
         }
         else {
           setUser(null)
