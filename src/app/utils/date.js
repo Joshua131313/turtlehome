@@ -30,18 +30,35 @@ export const addS = (value) => {
   }
   return ''
 }
-export const getTimeAgo = (date) => {
+export const getTimeAgo = (date, isActiveAgo) => {
     const seconds = Math.floor((Date.now() - date) / 1000)
-    if(seconds < 1)
-      return 'Just now'
-    else if(seconds < 60)
-      return seconds + ` second${addS(seconds)} ago`
-    else if(seconds < 3600)
-      return Math.floor(seconds / 60) + ` minute${addS(Math.floor(seconds / 60))} ago`
-    else if(seconds < 86400)
-      return Math.floor(seconds / 3600) + ` hour${addS(Math.floor(seconds / 3600))} ago`
-    else if(seconds < 604800) //if less than 3 days
-      return Math.floor(seconds / 86400) + ` day${addS(Math.floor(seconds / 86400))} ago`
-    else 
-      return convertClassicDate(date)
+    if(isActiveAgo) {
+      if(seconds < 1)
+        return 'Active Now'
+      else if(seconds < 60)
+        return `Active ${seconds} second${addS(seconds)} ago`
+      else if(seconds < 3600)
+        return `Active ${Math.floor(seconds / 60)} minute${addS(Math.floor(seconds / 60))} ago`
+      else if(seconds < 86400)
+        return  `Active ${Math.floor(seconds / 3600)} hour${addS(Math.floor(seconds / 3600))} ago`
+      else if(seconds < 604800) //if less than 3 days
+        return  `Active ${Math.floor(seconds / 86400)} day${addS(Math.floor(seconds / 86400))} ago`
+      else 
+        return ''
+    }
+    else {
+      if(seconds < 1)
+       return 'Just now'
+      else if(seconds < 60)
+        return seconds + ` second${addS(seconds)} ago`
+      else if(seconds < 3600)
+        return Math.floor(seconds / 60) + ` minute${addS(Math.floor(seconds / 60))} ago`
+      else if(seconds < 86400)
+        return Math.floor(seconds / 3600) + ` hour${addS(Math.floor(seconds / 3600))} ago`
+      else if(seconds < 604800) //if less than 3 days
+        return Math.floor(seconds / 86400) + ` day${addS(Math.floor(seconds / 86400))} ago`
+      else 
+        return convertClassicDate(date)
+    }
+
 }

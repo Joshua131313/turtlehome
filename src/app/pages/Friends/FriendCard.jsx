@@ -33,8 +33,8 @@ const FriendCard = props => {
         <div className={`${activeClassName} friendcard flexrow sb ac`}>
                 <AppUser userid={user[userKey]}>
                     {({userInfo})=> (
-                        <small className="activetimeago">{userInfo?.lastActive === 'Now' ? 'Active Now' : getTimeAgo(userInfo?.lastActive?.toDate())}</small>
-                    )}
+                        <small className="activetimeago">{userInfo?.lastActive === 'Now' ? 'Active Now' : getTimeAgo(userInfo?.lastActive?.toDate(), true)}</small>
+                    )} 
                 </AppUser>
                 <Dropdown options={options ?? [
                     {
