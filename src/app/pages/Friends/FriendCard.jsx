@@ -5,6 +5,7 @@ import Dropdown from '../../components/Dropdown/Dropdown';
 import { db } from '../../../Fire';
 import { generateID } from '../../services/DBFunctions';
 import firebase from 'firebase';
+import { getTimeAgo } from '../../utils/date';
 
 const FriendCard = props => {
     const {user, friends, options, activeClassName, userKey='uid'} = props
@@ -31,7 +32,9 @@ const FriendCard = props => {
     return (
         <div className={`${activeClassName} friendcard flexrow sb ac`}>
                 <AppUser userid={user[userKey]}>
-                    <small className="activetimeago">Active 5 minutes ago</small>
+                    {({userInfo})=> (
+                        <small className="activetimeago">{userInfo?.lastActive === 'Now' ? 'Active Now' : getTimeAgo(userInfo?.lastActive?.toDate())}</small>
+                    )}
                 </AppUser>
                 <Dropdown options={options ?? [
                     {

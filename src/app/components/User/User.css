@@ -3,6 +3,9 @@
   height: 50px;
   border-radius: 50%;
 }
+.user img {
+  border-radius: 50%;
+}
 .namemsg {
   gap: 1px;
   margin-left: 10px;

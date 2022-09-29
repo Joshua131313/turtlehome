@@ -8,6 +8,8 @@ import React from "react";
 import { AppContainer } from "./AppContainer";
 import { InstantSearch } from "react-instantsearch-dom";
 import { usersSearchClient } from "./app/algolia";
+import { Beforeunload } from 'react-beforeunload';
+import { handleUnload } from "./app/services/DBFunctions";
 
 export default function App() {
 
@@ -19,7 +21,9 @@ export default function App() {
         >
         <ContextAppProvider>
           <Notifisystem />
-          <AppContainer />
+          <Beforeunload onBeforeunload={(e)=> handleUnload()}>
+             <AppContainer />
+          </Beforeunload>
         </ContextAppProvider>
       </InstantSearch>
     </Router>

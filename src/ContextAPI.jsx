@@ -16,6 +16,7 @@ const ContextAppProvider = (props) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
+        db.collection('users').doc(user.uid).set({lastActive: 'Now'}, {merge: true})
       } else {
         setUser("");
       }
@@ -38,7 +39,7 @@ const ContextAppProvider = (props) => {
           setUserinfo(snap.data());
         });
   }, [user]);
-
+ 
   useEffect(() => {
     authListener();
   }, []);

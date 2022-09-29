@@ -9,10 +9,12 @@ const AppUser = props => {
     const userInfo = useGetUserInfo(props.userid) 
     return (
         <div  className="user flexrow ac gap-5" >
-            {showImg && <ImgLoaded img={userInfo?.userinfo?.profilePic}/>}
+            {showImg && <ImgLoaded activeIndicator={userInfo?.lastActive === 'Now'} img={userInfo?.userinfo?.profilePic}/>}
              {showText && <div className="flexcol">
                  <span>{userInfo?.name}</span>
-                 {props.children}
+                 {typeof props.children === 'function' ? props.children({
+                     userInfo: userInfo
+                 }) : props.children}
              </div>} 
         </div>
     );

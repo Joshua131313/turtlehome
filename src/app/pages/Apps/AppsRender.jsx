@@ -18,14 +18,14 @@ const AppsRender = props => {
                     </div>
                 </Link>
            
-                <div className="appcard">
+                <Link to='blackjack' className="appcard">
                     <div className="iconsection">
                         <i className="fa fa-spade"></i>
                     </div>
                     <div className="appinfo">
                         <h3>Black Jack</h3>
                     </div>
-                </div>
+                </Link>
             </div>
         </Layout>
     );

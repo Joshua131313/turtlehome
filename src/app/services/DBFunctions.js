@@ -26,6 +26,11 @@ export const createUserCollection = (userid, name, email, profilePic='', phoneNu
   })
 }
 
+export const handleUnload = () => {
+  const user = firebase.auth().currentUser
+
+  db.collection('users').doc(user.uid).set({lastActive: new Date()}, {merge: true})
+}
 
 export const loginwithProvider = (provider, history) => {
   provider.addScope('email');

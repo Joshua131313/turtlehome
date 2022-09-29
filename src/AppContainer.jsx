@@ -11,6 +11,7 @@ import RightBar from "./app/components/RightBar/RightBar";
 import { sideBarLinks } from "./app/data/Array";
 import Apps from "./app/pages/Apps/Apps";
 import AppsRender from "./app/pages/Apps/AppsRender";
+import AppsRoutes from "./app/pages/Apps/AppsRoutes";
 import Weather from "./app/pages/Apps/Weather";
 import Chats from "./app/pages/Chats/Chats";
 import NewChat from "./app/pages/Chats/NewChat";
@@ -76,17 +77,7 @@ export const AppContainer = (props) => {
              <Route path='/events'>
 
              </Route>
-             <Route path='apps' elemen={<Apps />}>
-                <Route index element={<AppsRender />} />
-                <Route path='weather-io' element={<Weather />}/>
-
-             </Route>
-             {/* <Route path='friends' element={<Friends />} >
-                <Route index element={<>asd</>} />
-                <Route path='friend-request' element={<>12</>} />
-                <Route path='blocked-friends' element={<>ccc</>} />
-                <Route path='add-friends' element={<AddFriends />} />
-              </Route> */}
+             <Route path='apps/*' element={<AppsRoutes /> } />
               <Route path='friends/*' element={<FriendsRoutes />}/>
               {/* <Route path=':category' element={<CategoryPage />}/>
               <Route path="saved" element={<>Saved</>} /> */}
