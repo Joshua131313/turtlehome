@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 import { db } from '../../Fire';
+import { specialChars } from '../utils/general';
 import { deleteMultipleStorageFiles, uploadMultipleFilesToFireStorage } from './storageServices'
 export const generateID = () => {
   return db.collection('users').doc().id
@@ -226,10 +227,15 @@ export const createImgDoc = (el, doc, postID='') => {
     }
   )
 }
-export const addAlbum = (files, name, navigate) => {
+export const addAlbum = (files, name, navigate, addNoti) => {
+  const isSpecialCharsPresent = specialChars.split('').some(char => name.includes(char)) 
   const user = firebase.auth().currentUser
   const id = generateID()
-  uploadMultipleFilesToFireStorage(files, `users/${user.uid}`).then(media=> {
+  if(isSpecialCharsPresent) {
+    addNoti('Album contains special characters!', 'fal fa-exclamation-circle')
+  }
+  else {
+     uploadMultipleFilesToFireStorage(files, `users/${user.uid}`).then(media=> {
       db.collection(`/users/${user.uid}/albums`).doc(id).set({
         albumName: name,
         albumId: id,
@@ -242,6 +248,8 @@ export const addAlbum = (files, name, navigate) => {
         navigate()
       })
     })
+  }
+ 
 }
 export const blockUser = (userid, isBlocked) => {
   const user = firebase.auth().currentUser

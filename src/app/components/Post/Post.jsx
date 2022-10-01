@@ -47,9 +47,18 @@ const Post = props => {
         return (
             <div className="name flexrow" key={reaction.user}>
                 <AppUser userid={reaction.user} showImg={false}/>
-                <span>
+                {/* <span>
                     {reactions.length === 1 ? '' : (reactions.length === 2 && i === 0) ?  '&' : i === reactions.length - 1 ? '' : ','}
-                </span>
+                </span> */}
+                {
+                    reactions.length === 1 ? '' 
+                    : 
+                    (reactions.length === 2 && i === 0) ?
+                    <span style={{fontWeight: 'bold', marginLeft: 5, marginRight: 3}}>&</span>
+                    :
+                    i !== reactions.length - 1  &&
+                    ','
+                }
             </div>
         )
     }) 

@@ -22,7 +22,7 @@ const Slider = props => {
             {imgZoom && 
              <div className="imgheader flexrow ac sb">
                {!media?.fileType?.includes('video') &&
-                <div onClick={()=> saveAs(media.downloadURL ?? media.preview, media.name+'.jpg')} >
+                <div onClick={()=> saveAs(media.downloadURL ?? media.preview ?? media.media, media.name+'.jpg')} >
                     <i className="fal fa-cloud-download appicon"></i>
                 </div>}
                  {media?.fileInfo && 

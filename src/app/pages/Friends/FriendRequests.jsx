@@ -12,7 +12,7 @@ import { blockUser } from '../../services/DBFunctions';
 import useGetBlockedUsers from '../../services/GetBlockedUsers';
 
 const FriendRequests = props => {
-    const [filter, setFilter] = useState('all')
+    const [filter, setFilter] = useState('pending')
     const friendRequests = useGetFriendRequests(filter)
     const blockedUsers = useGetBlockedUsers()
     const curUser = firebase.auth().currentUser
@@ -34,6 +34,9 @@ const FriendRequests = props => {
             status: 'rejected'
         })
     }
+    const unsendRequest = () => {
+
+    }
     const markAsRead = (notifID, read) => {
       if(read) {
         db.collection('users').doc(curUser.uid).collection('notifications').doc(notifID).update({
@@ -47,34 +50,55 @@ const FriendRequests = props => {
       }
     }
     console.log(friendRequests)
+   
     const requestsRender = friendRequests?.map((request, i)=> {
-        return (
-            <FriendCard user={{uid: request.requestedBy}} activeClassName={request?.read ? '' : 'hightlight'} key={i} 
-              options={[
-                  {
-                      icon: 'fal fa-user-check',
-                      text: 'Accept Request',
-                      onClick: ()=> acceptFriendRequest(request.requestedBy, request.requestID)
-                  },
-                  {
-                      icon: 'fal fa-user-times',
-                      text: 'Reject Request',
-                      onClick: ()=> rejectFriendRequest(request.requestedBy, request.requestID),
-                  },
-                  {
-                      icon: 'fal fa-user-slash',
-                      text: blockedUsers.some(x=> x.userid === request.requestedBy) ? "Unblock this User" : 'Block this User',
-                      onClick: ()=> blockUser(request.requestedBy, blockedUsers.some(x=> x.userid === request.requestedBy))
-                  },
-                  {
-                      icon: request.read ? 'fal fa-eye-slash' : 'fal fa-eye',
-                      text: request.read ? 'Mark as Unread' : 'Mark as Read',
-                      onClick: ()=> markAsRead(request.requestID, request.read)
-                  }
-              ]}
-            />
-        )
+        let isRequestedTo = request.requestedTo
+        let options = [
+            {
+                icon: 'fal fa-user-check',
+                text: isRequestedTo ? 'Request Pending' : 'Accept Request',
+                onClick: ()=> isRequestedTo ? null : acceptFriendRequest(request.requestedBy, request.requestID)
+            },
+            {
+                icon: 'fal fa-user-times',
+                text: request.requestedTo ? 'Unsend Request' : 'Reject Request',
+                onClick: ()=> isRequestedTo ? unsendRequest() : rejectFriendRequest(request.requestedBy, request.requestID),
+            },
+            {
+                icon: 'fal fa-user-slash',
+                text: blockedUsers.some(x=> x.userid === request.requestedBy) ? "Unblock this User" : 'Block this User',
+                onClick: ()=> blockUser(request.requestedBy, blockedUsers.some(x=> x.userid === request.requestedBy))
+            },
+            {
+                icon: request.read ? 'fal fa-eye-slash' : 'fal fa-eye',
+                text: request.read ? 'Mark as Unread' : 'Mark as Read',
+                onClick: ()=> markAsRead(request.requestID, request.read)
+            }
+        ]
+        if(request.requestedTo) {
+            return (
+                <FriendCard 
+                  user={{uid: request.requestedTo}} 
+                  activeClassName={request?.read ? '' : 'hightlight'} 
+                  key={i} 
+                  options={options.slice(2, 4)}
+                  accessBtns={options.slice(1, 2)}
+                />
+            )
+        }
+        else {
+            return (
+                <FriendCard 
+                  user={{uid: request.requestedBy}} 
+                  activeClassName={request?.read ? '' : 'hightlight'} 
+                  key={i} 
+                  options={options}
+                  accessBtns={options.slice(0, 2)}
+                />
+            )
+        }
     })
+    
     return (
         <Layout 
             className='friendrequests'

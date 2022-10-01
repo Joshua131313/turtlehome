@@ -1,5 +1,5 @@
 
-export  function addNotification(parameters, time=70, position='tc'){
+export  function addNotification(parameters, time=15, position='tc'){
   const options = parameters
    const notification = parameters.notifisystem.current
     notification &&  notification.addNotification({

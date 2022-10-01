@@ -7,5 +7,7 @@
 @media (max-width: 600px) {
    .layout {
       padding-top: 75px;
+      padding-bottom: 100px;
    }
+
 }

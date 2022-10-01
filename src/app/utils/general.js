@@ -16,3 +16,5 @@ export const convertBytes = (bytes, decimals = 0) => {
 
   return parseFloat(bytes.toFixed(decimals)) + ' ' + units[i]
 }
+export const specialChars = `/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;`
+

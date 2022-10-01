@@ -70,8 +70,9 @@
 .post .postactiondetails .likedbyrow .name span {
     color: var(--gray-text);
     font-size: 12px;
-    margin-left: 5px;
+    margin-left: 2px;
 }
+
 
 .drop {
     position: absolute;
