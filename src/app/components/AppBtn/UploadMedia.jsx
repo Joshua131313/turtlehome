@@ -11,7 +11,7 @@ import { generateID } from '../../services/DBFunctions';
 
 const UploadMedia = props => {
     const {notifisystem, user} = useContext(StoreContext)
-    const {files, setFiles, limit=''} = props
+    const {files, setFiles, limit=Infinity} = props
     const [openID, setOpenID] = useState(null)
     const [dropZone, setDropZone] = useState(false)
     const showNoti = () => {

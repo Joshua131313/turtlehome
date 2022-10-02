@@ -26,7 +26,7 @@ const DropZone = props => {
     // useEffect(()=> {        
     //     setFiles(prev=> [...prev, ...acceptedFiles])
     // }, [acceptedFiles])
-
+console.log(files?.length)
     return (
         <>
            <div className={`dropzonecont ${(!disabled && limit !== files?.length) ? '' : 'disableddropzone'}`}>
