@@ -14,13 +14,6 @@ const FriendsRender = props => {
                 friends={friends} 
                 key={friend.friendID} 
                 userKey='friendID'
-                options={[
-                    {
-                        icon: 'fal fa-user-',
-                        text: '',
-                        onClick: ()=> {}
-                    }
-                ]}
                 />
         )
     })

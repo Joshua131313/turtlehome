@@ -1,0 +1,148 @@
+.startgamecont {
+    height: 40vh;
+    margin-top: 20px;
+}
+.startgamecont img {
+    filter: brightness(80%);
+}
+.startgameoverlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.table {
+    margin-top: 20px;
+}
+.playerscontainer {
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px 10px;
+    justify-content: space-evenly;
+    margin-top: 40px;
+}
+.playerscontainer .addplayer {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    box-shadow: var(--card-shadow);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.outerdealercontainer {
+    gap: 10px;
+}
+.dealervalue {
+    gap: 10px;
+    width: 220px;
+}
+.dealervalue > span {
+    font-size: 20px;
+}
+.playerfunds {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    color: var(--theme-color);
+    font-weight: bold;
+    font-size: 17px;
+}
+.loser.playerbet .bet {
+    background-color: var(--red-bg);
+}
+.loser.playerbet .bet {
+    color: var(--red);
+}
+.winner.playerbet .bet {
+    background-color: var(--green-bg);
+}
+.winner.playerbet .bet {
+    color: var(--green);
+}
+.addplayer:hover {
+    background-color: var(--gray-bg);
+}
+.dealercontainer {
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.dealercontainer, .playercontainer {
+    display: flex;
+    width: 240px;
+}
+.playercontainer {
+    margin-top: 20px;
+}
+.table .dealercontainer .deckcard, .table .playercontainer .deckcard {
+ 
+}
+.table .dealercontainer .deckcard:last-of-type, .table .playercontainer .deckcard:last-of-type {
+    position: absolute;
+}
+.deckcard {
+    width: 200px;
+    height: 300px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--card-shadow);
+}
+.facedown {
+    background-color: var(--theme-color);
+}
+.facedown div {
+    display: none;
+}
+.deckcard .cardvalue {
+    align-items: center;
+    gap: 4px;
+}
+.cardvalue strong {
+    font-size: 20px;
+}
+.deckcard .cardsuit {
+    font-size: 30px;
+}
+.deckcard .up {
+    align-self: flex-start;
+}
+.deckcard .down {
+    align-self: flex-end;
+    flex-direction: column-reverse;
+}
+.redsuits i, .redsuits strong {
+    color: var(--red);
+}
+.configtitle {
+    margin-bottom: 20px;
+}
+.configurepopup button {
+    margin-top: 20px;
+}
+.bet {
+    text-align: center;
+    color: var(--gray-text);
+    font-weight: bold;
+    background-color: #fff;
+    box-shadow: var(--card-shadow);
+    padding: 10px;
+    align-items: center;
+    border-radius: 20px;
+}
+.controls {
+    gap: 10px;
+}
+.controls .appbtn {
+    width: 100%;
+    white-space: nowrap;
+}

@@ -43,6 +43,9 @@
     gap: 10px;
     align-items: flex-start;
 }
+.commentssection > .commentinput {
+    padding-bottom: 20px;
+}
 .commentinput .inputcont {
     width: 100%;
     display: flex;

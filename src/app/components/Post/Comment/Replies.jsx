@@ -6,7 +6,7 @@ import useGetCommentReplies from '../../../services/GetCommentReplies';
 import Reply from './Reply';
 
 const Replies = props => {
-    const {showReply, post, comment} = props
+    const {showReply, post, comment, setShowReply} = props
     const [reply, setReply] = useState('')
     const replies = useGetCommentReplies({post, comment})
     const [loading, setLoading] = useState(false)
@@ -20,7 +20,7 @@ const Replies = props => {
     return (
         <div className="replycont flexcol">
             {
-                showReply && <CommentInput loading={loading} onClick={(file)=> handleReply(post, comment, reply, setReply, file, setLoading)} value={reply} setValue={setReply} text='Reply' placeholder='Write a reply...' />
+                showReply && <CommentInput loading={loading} onClick={(file)=> {handleReply(post, comment, reply, setReply, file, setLoading); setShowReply(false)}} value={reply} setValue={setReply} text='Reply' placeholder='Write a reply...' />
             }
             {replies.length !== 0 ? <div className="replyrow flexcol">
                 {repliesRender}

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Route, Routes } from 'react-router-dom';
 import Apps from './Apps';
 import AppsRender from './AppsRender';
-import Weather from './Weather';
-import BlackJack from './BlackJack';
+import Weather from './Weather/Weather';
+import BlackJack from './BlackJack/BlackJack';
+
 
 const AppsRoutes = props => {
     return (

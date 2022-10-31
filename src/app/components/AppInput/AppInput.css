@@ -4,9 +4,11 @@ textarea, input {
     width: 100%;
     border-radius: 20px;
     padding: 15px;
+    height: 40px;
     min-height: 100px;
     resize: none;
     font-family: "Nunito", sans-serif;
+    height: 40px;
 }
 input {
     min-height: initial;

@@ -1,16 +1,22 @@
-.feed textarea {
+.createpostcontrols textarea {
     padding-left: 55px;
     padding-top: 20px;
+}
+.createpostcontrols .titlebar {
+    padding: 0 10px;
+    margin-bottom: 20px;
 }
 .textareacontent .user {
     position: absolute;
     top: 10px;
     z-index: 1;
 }
+.textareacontent .user {
+    left: 10px;
+}
 .textareacontent .user .imgloaded {
     width: 40px;
     height: 40px;
-    left: 10px;
 }
 .selectmedia {
     margin-top: 10px;
@@ -53,4 +59,10 @@
 }
 .createpostcontrols {
     box-shadow: var(--card-shadow);
+}
+.editmodal .createpostcontrols {
+    box-shadow: none;
+}
+.editmodal .popupcontent {
+    width: 600px;
 }

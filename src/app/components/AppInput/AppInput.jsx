@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import './AppInput.css'
 
-export const AppInput = ({placeholder, value, setValue, removeText, shouldFocusOnKey}) => {
+export const AppInput = ({placeholder, value, setValue, removeText, shouldFocusOnKey, type='text'}) => {
   let inputRef = useRef()
   useEffect(()=> {
     if(shouldFocusOnKey) {
@@ -15,7 +15,7 @@ export const AppInput = ({placeholder, value, setValue, removeText, shouldFocusO
   return (
     <div className="appinput">
      {!removeText && <span>{placeholder}</span>}
-      <input ref={inputRef} placeholder={placeholder} value={value} onChange={(e)=> setValue(e.target.value)} type="text" />
+      <input ref={inputRef}  value={value} onChange={(e)=> setValue(e.target.value)} type={type} />
     </div>
   )
 }

@@ -49,7 +49,7 @@ const Comment = props => {
                     </div>
                 </div>
             </div>
-            <Replies showReply={showReply} comment={comment} post={post}/>
+            <Replies setShowReply={setShowReply} showReply={showReply} comment={comment} post={post}/>
         </div>
     );
 };

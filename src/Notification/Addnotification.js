@@ -7,7 +7,7 @@ export  function addNotification(parameters, time=15, position='tc'){
       <div className={`notic ${options.type}`}>
       <i className={options.icon} ></i> 
       {options.type === 'input' ?
-        <input autoFocus onClick={(e)=> e.stopPropagation()} type='text' className='input' placeholder={options.msg}  onChange={(e)=> options.onChange(e)} />
+        <input autoFocus onClick={(e)=> e.stopPropagation()} type={options.inputType ?? 'text'} className='input' placeholder={options.msg}  onChange={(e)=> options.onChange(e)} />
        :
         <strong>{options.msg}</strong>
       }

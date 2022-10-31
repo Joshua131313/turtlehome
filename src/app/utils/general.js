@@ -18,3 +18,11 @@ export const convertBytes = (bytes, decimals = 0) => {
 }
 export const specialChars = `/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;`
 
+export const editState = (state, id) => {
+  let tempState = [...state]
+  let index = tempState.findIndex(x=> x.id === id)
+  return {
+    tempState,
+    index
+  }
+}

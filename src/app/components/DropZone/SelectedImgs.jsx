@@ -9,6 +9,7 @@ const SelectedImgs = props => {
         let temp = [...files]
         temp.splice(i, 1)
         setFiles(temp)
+        console.log(temp)
     }
 
     return (
@@ -19,7 +20,7 @@ const SelectedImgs = props => {
                     return (
                         <div className="imgcont">
                             <i className="fal fa-times appicon" onClick={()=> removeImg(i)}></i>
-                            <video src={file.preview} alt="" controls={false}/>
+                            <video src={file.preview ?? file.downloadURL} alt="" controls={false}/>
                         </div>
                     )
                 }
@@ -27,7 +28,7 @@ const SelectedImgs = props => {
                     return (
                         <div className="imgcont">
                             <i className="fal fa-times appicon" onClick={()=> removeImg(i)}></i>
-                            <img src={file.preview} alt="" />
+                            <img src={file.preview ?? file.downloadURL ?? file.media} alt="" />
                         </div>
                     )
                 }

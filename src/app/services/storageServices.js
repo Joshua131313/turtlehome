@@ -5,9 +5,10 @@ export const uploadMultipleFilesToFireStorage = (files, storagePath, setUploadPr
   const user = firebase.auth().currentUser
   return new Promise((resolve, reject) => {
     if(!files?.length) return resolve([])
-    let urlImgs = files.filter(x=> x.isUrl)
+    let urlImgs = files.filter(x=> !x.preview)
     const imgURLs = [...urlImgs]
-    files.filter(x=> !x.isUrl).forEach((file, i) => {
+    console.log(files.filter(x=> x.preview))
+    files.filter(x=> x.preview).forEach((file, i) => {
       let id = generateID()
         const storageRef = firebase.storage().ref(storagePath)
         const uploadTask = storageRef.child( id ).put(file)

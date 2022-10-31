@@ -28,6 +28,7 @@ body {
   --red: #e50914;
   --red-bg: #ffb4b796;
   --green: rgb(25, 221, 25);
+  --green-bg: rgb(195, 255, 195);
   --overlay: rgba(0, 0, 0, 0.5);
   --gray-shadow: 0px 0px 7px 1px rgb(49 49 49);
   --scale-factor: 0.97;
@@ -170,6 +171,9 @@ input::-webkit-inner-spin-button {
 }
 .sb {
   justify-content: space-between;
+}
+.jc {
+  justify-content: center;
 }
 .fe {
   justify-content: flex-end;

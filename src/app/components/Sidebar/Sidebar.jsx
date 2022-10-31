@@ -7,14 +7,22 @@ import ImgLoaded from '../Imgloaded/Imgloaded';
 import { User } from '../User/User';
 import Envelope from '../../containers/Envelope/Envelope';
 import { handleLogout } from '../../services/DBFunctions';
+import useGetNotifications from '../../services/GetNotifications';
+import NotificationCard from '../NotificationCard/NotificationCard';
 
 const Sidebar = props => {
+    const notifications = useGetNotifications()
     const sidebarlinksrow = sideBarLinks.map((link, i)=> {
         return (
             <NavLink to={`/${link.link}`} key={i} className={({isActive})=> "sidebarlink" + (isActive ? ' activelink':'')}>
                 <i className={`fal fa-${link.icon}`}></i>
                 <span>{link.text}</span>
             </NavLink>
+        )
+    })
+    const notificationsRender = notifications?.map(notification=> {
+        return (
+            <NotificationCard notification={notification} />
         )
     })
     return (
@@ -38,21 +46,7 @@ const Sidebar = props => {
                  <i className="appicon fal fa-envelope"></i>
                 </div>
                 <div className="notificationsrow">
-                    <div className="notificationcard">
-                        
-                    </div>
-                    <div className="notificationcard">
-
-                    </div>
-                    <div className="notificationcard">
-
-                    </div>
-                    <div className="notificationcard">
-
-                    </div>
-                    <div className="notificationcard">
-
-                    </div>
+                    {notificationsRender}
                 </div>
             </Envelope>
         </div>

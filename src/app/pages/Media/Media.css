@@ -53,6 +53,9 @@
     justify-content: space-between;
     margin-top: 20px;
 }
+.mediapage {
+    padding-bottom: 20px;
+}
 .incrementsize {
     display: flex;
     background-color: #fff;

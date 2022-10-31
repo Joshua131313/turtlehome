@@ -13,7 +13,7 @@ import ReactTextareaAutosize from 'react-textarea-autosize';
 import AppBtn from '../AppBtn/AppBtn';
 import PostBtn from '../AppBtn/PostBtn';
 import CommentInput from './Comment/CommentInput';
-import { addReaction, deletePost, flagPost, generateID, hidePost, privatePost, sendComment } from '../../services/DBFunctions';
+import { addReaction, deletePost, flagPost, generateID, hidePost, privatePost, sendComment, updatePost } from '../../services/DBFunctions';
 import useGetPostComments from '../../services/GetPostComments';
 import Comments from './Comment/Comments';
 import useGetReactions from '../../services/GetReactions';
@@ -21,6 +21,11 @@ import Dropdown from '../Dropdown/Dropdown';
 import Drop from './Drop';
 import { addS, getTimeAgo } from '../../utils/date';
 import MediaCarousel from '../MediaCarousel/MediaCarousel';
+import Popup from '../Popup/Popup';
+import SelectedImgs from '../DropZone/SelectedImgs';
+import UploadMedia from '../AppBtn/UploadMedia';
+import TextArea from '../AppInput/TextArea';
+import EditPostPopup from './EditPostPopup';
 
 const Post = props => {
     const {post, openID, setOpenID} = props
@@ -29,6 +34,8 @@ const Post = props => {
     const [showComments, setShowComments] = useState(false)
     const [comment, setComment] = useState('')
     const [showEditPost, setShowEditPost] = useState(false)
+    const [editedPostContent, setEditedPostContent] = useState(post?.postContent.text)
+    const [editedPostMedia, setEditedPostMedia] = useState(post?.postContent.media)
     const [loading, setLoading] = useState(false)
     const ReactionIcon = ({reaction, text}) => {
         const isReacted = reactions.some(x=> x.user === user.uid && x.reaction === reaction)
@@ -62,9 +69,18 @@ const Post = props => {
             </div>
         )
     }) 
-
     return (
         <Envelope className='post' id={post.id}> 
+           {showEditPost && 
+            <EditPostPopup 
+                showEditPost={showEditPost}
+                setShowEditPost={setShowEditPost}
+                setEditedPostContent={setEditedPostContent}
+                editedPostContent={editedPostContent}
+                editedPostMedia={editedPostMedia}
+                setEditedPostMedia={setEditedPostMedia}
+                updatePost={()=> updatePost(post, editedPostContent, editedPostMedia)}
+             />}
             <div className="postheader flexrow ac sb">
                 <AppUser userid={post.postedBy}> 
                     <span className="timeago">
@@ -74,11 +90,11 @@ const Post = props => {
                 <Dropdown 
                     options={[
                         {text: post.flagged ? 'Reported' : 'Report post', icon: 'fal fa-flag', onClick: ()=> flagPost(post)},
-                        {text: 'Edit post', icon: 'fal fa-pencil', onClick: ()=> setShowEditPost(!showEditPost)},
-                        {text: post.hiddenBy?.includes(user.uid) ? 'Show post' : 'Hide post', icon: post.hiddenBy?.includes(user.uid) ? 'fal fa-eye' : 'fal fa-eye-slash', onClick: ()=> hidePost(post)},
-                        {text: post.private ? 'Show post' : 'Private post', icon: 'fal fa-shield-check', onClick: ()=> privatePost(post)},
-                        {text: 'Delete post', icon: 'fal fa-trash', onClick: ()=> deletePost(post)},
-                    ]} 
+                        {text: 'Edit post', icon: 'fal fa-pencil', onClick: ()=> setShowEditPost(!showEditPost), onlyOwner: true},
+                        {text: post.hiddenBy?.includes(user.uid) ? 'Show post' : 'Hide post', icon: post.hiddenBy?.includes(user.uid) ? 'fal fa-eye' : 'fal fa-eye-slash', onClick: ()=> hidePost(post), onlyOwner: true},
+                        {text: post.private ? 'Show post' : 'Private post', icon: 'fal fa-shield-check', onClick: ()=> privatePost(post), onlyOwner: true},
+                        {text: 'Delete post', icon: 'fal fa-trash', onClick: ()=> deletePost(post), onlyOwner: true},
+                    ].filter(x=> (user.uid === post.postedBy || !x.onlyOwner) && (user.uid !== post.postedBy || x.onlyOwner))} 
                     id={post.id} 
                     openID={openID} 
                     setOpenID={setOpenID}>
@@ -109,12 +125,12 @@ const Post = props => {
                          :''
                     }
                 </div>
-                <div className="count flexrow">
+                {post.commentCount !== 0 && <div className="count flexrow">
                     <div className="commentscount">
                         <small>{post.commentCount} {`comment${addS(post.commentCount)}`}</small>
                     </div>
                     {/* <div className="sharescount">100 shares</div> */}
-                </div>
+                </div>}
             </div>
             <div className="postcontrols">
                 <div className="postactionbtns">

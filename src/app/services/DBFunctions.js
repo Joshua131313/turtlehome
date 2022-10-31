@@ -152,6 +152,24 @@ export const hidePost = (post) => {
   //   hidden: !post.hidden
   // }, {merge: true})
 }
+export const updatePost = (post, postContent, postMedia) => {
+  console.log(postMedia)
+  const user = firebase.auth().currentUser
+  // db.collection(`users/${user.uid}/posts`).doc(post.id).update({
+  //   // 'postContent.media': media,
+  //   'postContent.text': postContent,
+  //   'postContent.media': postMedia
+
+  // })
+  uploadMultipleFilesToFireStorage(postMedia, `${user.uid}/files`).then(media=> {
+    console.log(media)
+    db.collection(`users/${user.uid}/posts`).doc(post.id).update({
+      'postContent.media': media,
+      'postContent.text': postContent,
+
+    }).catch(err=> console.log(err))
+  })
+}
 export const privatePost = (post) => {
   const user = firebase.auth().currentUser
   db.collection(`users/${user.uid}/posts`).doc(post.id).set({
