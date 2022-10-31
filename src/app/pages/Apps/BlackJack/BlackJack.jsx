@@ -172,16 +172,7 @@ const BlackJack = (props) => {
         for(let i = 0; i < 2; i++) {
           let randomID = Math.floor(Math.random() * deck.length)
           pCards.push(deck[randomID])
-         
         }
-        // pCards.push({
-        //   name: 'A',
-        //   suit: 'spade'
-        // })
-        // pCards.push({
-        //   name: '10',
-        //   suit: 'spade'
-        // })
         if(hasBlackJack(pCards)) {
           tempPlayers[s].blackJack = true
           tempPlayers[s].stand = true

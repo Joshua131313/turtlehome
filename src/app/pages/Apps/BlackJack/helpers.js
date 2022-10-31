@@ -19,17 +19,17 @@ export const getCardsValueWithoutAce = (cards) => {
     return count;
   };
   export const getCardsValue = (cards) => {
-    let count = 0;
+    let count = 0; 
     let numberOfAces = cards.filter(x=> x.name === 'A').length
     cards.forEach((card) => {
       if (card.name === "A") {
-        if(numberOfAces > 1) {
-          // HELP
+        count = count + 1
+        if(count < 12) {
+          count = count + 10
         }
-        else if (getCardsValueWithoutAce(cards) > 10) {
-          count = count + 1;
-        } else {
-          count = count + 11;
+        
+        else {
+          count = count - (10 * (numberOfAces-1))
         }
       } else if (card.name === "K" || card.name === "J" || card.name === "Q") {
         count = count + 10;
