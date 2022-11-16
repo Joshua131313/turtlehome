@@ -1,0 +1,39 @@
+.toolbar {
+    display: grid;
+    grid-template-columns: 30px 1fr 30px;
+    align-items: flex-end;
+    width: 100%;
+  }
+  .toolbar > .toolbaricon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .toolbarinput .toolbaricon {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+  }
+  .toolbarinput .dropusers {
+    top: initial;
+    bottom: 50px;
+  }
+  
+  .toolbarinput .toolbaricon:last-of-type {
+    right: 10px;
+  }
+  .toolbarinput textarea {
+    width: 100%;
+    min-height: 30px;
+    resize: none;
+    outline: none;
+    border: none;
+    background-color: var(--theme-bg);
+    border-radius: 20px;
+    padding: 7.5px 10px;
+    padding-right: 55px;
+    max-height: 300px;
+  }
+  .toolbar i {
+      color: var(--theme-color);
+  }

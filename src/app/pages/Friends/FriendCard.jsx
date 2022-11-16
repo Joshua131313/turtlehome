@@ -54,7 +54,7 @@ const FriendCard = props => {
                         {
                             icon: 'fal fa-comment',
                             text: 'Send message',
-                            link: `/chats/new-chat/${user[userKey]}`
+                            link: `/chats/new-chat?${user[userKey]}`
                         },
                         {
                             icon: isFriend ? 'fal fa-user-minus' : 'fal fa-user-plus', 

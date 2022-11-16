@@ -281,3 +281,45 @@ export const blockUser = (userid, isBlocked) => {
     })
   }
 }
+
+// chat
+
+export const sendMsg = (userid, convoid, msg, type='text') => {
+  let id = generateID()
+  db.collection(`chats/${convoid}/messages`).doc(id).set({
+    msg: {
+      content: msg,
+      type
+    },
+    date: new Date(),
+    senderid: userid,
+    msgid: id,
+    seenBy: []
+  })
+  db.collection('chats').doc(convoid).set({
+    lastMsgDate: new Date(),
+    lastMsg: {
+      content: msg,
+      type,
+      senderid: userid,
+      msgid: id,
+      seenBy: [],
+      date: new Date(),
+    }
+  }, {merge: true})
+}
+export const createConvo = (userid, to, convoid, msg, navigate, type='text') => {
+  db.collection('chats').doc(convoid).set({
+    members: to.includes(userid) ? to : [...to, userid],
+    convoid: convoid,
+    lastMsg: {
+      senderid: userid,
+      msg: msg,
+      wasSeen: false,
+      date: new Date()
+    }
+  }).then(()=> {
+    sendMsg(userid, convoid, msg, type)
+    navigate(`/chat/${convoid}`)
+  })
+}

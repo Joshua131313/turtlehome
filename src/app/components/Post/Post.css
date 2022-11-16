@@ -19,6 +19,10 @@
     margin: 10px 0;
     color: var(--gray-text);
 }
+.posttext a {
+    color: var(--gray-text);
+    text-decoration: underline;
+}
 .postimg {
    border-radius: 20px;
    width: 100%;

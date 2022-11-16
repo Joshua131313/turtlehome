@@ -26,3 +26,7 @@ export const editState = (state, id) => {
     index
   }
 }
+export const games = [
+  'weather',
+  'blackjack'
+]

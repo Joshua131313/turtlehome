@@ -17,7 +17,7 @@ const Tabs = props => {
     return (
         <div className='tabs flexrow'>
             {tabsRender}
-    </div>
+         </div>
     );
 };
 

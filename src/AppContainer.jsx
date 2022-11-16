@@ -5,8 +5,10 @@ import { Login } from "./app/auth/Login";
 import { Register } from "./app/auth/Register";
 import { Logo } from "./app/components/Logo/Logo";
 import AppsRoutes from "./app/pages/Apps/AppsRoutes";
-import Chats from "./app/pages/Chats/Chats";
-import NewChat from "./app/pages/Chats/NewChat";
+import Chat from "./app/pages/Chat/Chat";
+import ChatBox from "./app/pages/Chat/ChatBox";
+import EmptyBox from "./app/pages/Chat/EmptyBox";
+import NewChat from "./app/pages/Chat/NewChat";
 import Feed from "./app/pages/Feed/Feed";
 import FriendsRoutes from "./app/pages/Friends/FriendsRoutes";
 import Home from "./app/pages/Home/Home";
@@ -51,10 +53,10 @@ export const AppContainer = (props) => {
                <Route  path="create-album" element={<AddAlbum />} />
                <Route path=':albumName/:albumId' element={<AlbumPage />} />
              </Route>
-             <Route path='chats' element={<Chats />}>
-                <Route path='new-chat' element={<NewChat />}>
-                  <Route path=':userid' element={<>a</>} />
-                </Route>
+             <Route path='chats' element={<Chat />}>
+                <Route index element={<EmptyBox />} />
+                <Route path='new-chat' element={<NewChat />} />
+                <Route path=':userid' element={<ChatBox />} />
              </Route> 
              <Route path='/reels'>
 

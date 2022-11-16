@@ -26,6 +26,7 @@ import SelectedImgs from '../DropZone/SelectedImgs';
 import UploadMedia from '../AppBtn/UploadMedia';
 import TextArea from '../AppInput/TextArea';
 import EditPostPopup from './EditPostPopup';
+import PostText from './PostText';
 
 const Post = props => {
     const {post, openID, setOpenID} = props
@@ -101,9 +102,7 @@ const Post = props => {
                     <i className="appicon fal fa-ellipsis-h"></i>
                 </Dropdown>
             </div>
-            <div className="posttext">
-                {post?.postContent.text}
-            </div>
+            <PostText post={post} />
             {post?.postContent.media.length ?
                 <div className="postmedia">
                     <MediaCarousel post={post} media={post?.postContent.media} />

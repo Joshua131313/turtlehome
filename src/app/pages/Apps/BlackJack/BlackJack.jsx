@@ -295,7 +295,7 @@ const BlackJack = (props) => {
     }
   }, [players, dealerCards, gameEnded])
   return (
-    <Layout noBtn title="BlackJack" className="blackjack">
+    <Layout noBtn title="BlackJack" className="blackjack" backBtn>
       <Popup popupClassName='configurepopup' visible={configurePopup} setVisible={setConfigurePopup}>
           <h2 className="configtitle">Configure your game</h2>
           <div className="option">

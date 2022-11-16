@@ -11,6 +11,6 @@ const TextArea = props => {
 
 TextArea.propTypes = {
     
-};
+}; 
 
 export default TextArea;

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Layout from '../../../containers/Layout/Layout';
+import useGetWeatherInfo from '../../../services/GetWeatherInfo';
 
 const Weather = props => {
+    const weatherData = useGetWeatherInfo()
+    
     return (
-        <div className='weatherapp'>
+        <Layout className='weatherapp' title='WeatherIO' noBtn backBtn>
             
-        </div>
+        </Layout>
     );
 };
 
