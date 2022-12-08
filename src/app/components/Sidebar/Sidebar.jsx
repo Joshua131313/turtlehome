@@ -9,6 +9,7 @@ import Envelope from '../../containers/Envelope/Envelope';
 import { handleLogout } from '../../services/DBFunctions';
 import useGetNotifications from '../../services/GetNotifications';
 import NotificationCard from '../NotificationCard/NotificationCard';
+import LogoutWrapper from '../LogoutWrapper/LogoutWrapper';
 
 const Sidebar = props => {
     const notifications = useGetNotifications()
@@ -31,7 +32,9 @@ const Sidebar = props => {
                 <User isLink/>
                 <div className="icons">
                     <i className='fal fa-home  appicon'></i>
-                    <i className='fal fa-sign-out  appicon' onClick={()=> handleLogout()}></i>
+                    <LogoutWrapper>
+                      <i className='fal fa-sign-out  appicon'></i>
+                    </LogoutWrapper>
                     <i className='fal fa-cog  appicon'></i>
                     <i className='fal fa-bell  appicon'></i>
 
