@@ -141,12 +141,12 @@ export const hidePost = (post) => {
   const user = firebase.auth().currentUser
   if(post.hiddenBy?.includes(user.uid)) {
     db.collection(`users/${user.uid}/posts`).doc(post.id).set({
-        hiddenBy: post.hiddenBy.filter(x=> x !== user.uid)
+        hiddenBy: firebase.firestore.FieldValue.arrayRemove(user.uid)
     }, {merge: true})
   }
   else {
     db.collection(`users/${user.uid}/posts`).doc(post.id).set({
-      hiddenBy: post.hiddenBy.push(user.uid)
+      hiddenBy: firebase.firestore.FieldValue.arrayUnion(user.uid)
     }, {merge: true})
   }
   // db.collection(`users/${user.uid}/posts`).doc(post.id).set({
