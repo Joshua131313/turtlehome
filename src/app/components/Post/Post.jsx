@@ -92,7 +92,7 @@ const Post = props => {
                     options={[
                         {text: post.flagged ? 'Reported' : 'Report post', icon: 'fal fa-flag', onClick: ()=> flagPost(post)},
                         {text: 'Edit post', icon: 'fal fa-pencil', onClick: ()=> setShowEditPost(!showEditPost), onlyOwner: true},
-                        {text: post.hiddenBy?.includes(user.uid) ? 'Show post' : 'Hide post', icon: post.hiddenBy?.includes(user.uid) ? 'fal fa-eye' : 'fal fa-eye-slash', onClick: ()=> hidePost(post), onlyOwner: true},
+                        {text: post?.hiddenBy?.includes(user.uid) ? 'Show post' : 'Hide post', icon: post.hiddenBy?.includes(user.uid) ? 'fal fa-eye' : 'fal fa-eye-slash', onClick: ()=> hidePost(post), onlyOwner: true},
                         {text: post.private ? 'Show post' : 'Private post', icon: 'fal fa-shield-check', onClick: ()=> privatePost(post), onlyOwner: true},
                         {text: 'Delete post', icon: 'fal fa-trash', onClick: ()=> deletePost(post), onlyOwner: true},
                     ].filter(x=> (user.uid === post.postedBy || !x.onlyOwner) && (user.uid !== post.postedBy || x.onlyOwner))} 
