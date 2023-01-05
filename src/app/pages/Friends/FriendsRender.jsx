@@ -5,7 +5,6 @@ import useGetFriends from '../../services/GetFriends';
 import FriendCard from './FriendCard';
 const FriendsRender = props => {
     const friends = useGetFriends()
-    console.log(friends)
     const friendsRender = friends?.map(friend=> {
 
         return  (
@@ -14,7 +13,7 @@ const FriendsRender = props => {
                 friends={friends} 
                 key={friend.friendID} 
                 userKey='friendID'
-                />
+            />
         )
     })
     return (

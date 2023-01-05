@@ -6,9 +6,17 @@ import firebase from 'firebase';
 import Dropdown from '../Dropdown/Dropdown';
 import AppBtn from '../AppBtn/AppBtn';
 import FriendCard from '../../pages/Friends/FriendCard';
+import useGetFriends from '../../services/GetFriends';
 const RightBar = props => {
     const user = firebase.auth().currentUser
     const [openID, setOpenID] = useState(1)
+    const friends = useGetFriends()
+    const friendsRender = friends?.map(friend=> {
+        console.log(friend)
+        return (
+            <FriendCard user={friend} userKey='friendID'/>
+        )
+    }) 
     return (
         <div className='rightbar'>
             <div className="flexrow sb ac">
@@ -16,7 +24,7 @@ const RightBar = props => {
              <i className="fal fa-user-plus appicon"></i>
             </div>
             <div className="friendsrender">
-                <FriendCard user={user} />
+               {friendsRender}
             </div>
         </div>
     );

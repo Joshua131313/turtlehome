@@ -3,6 +3,7 @@ import axios from "axios";
 import { addNotification } from "./Notification/Addnotification";
 import firebase from "firebase";
 import { db } from "./Fire";
+import { presence } from "./app/services/DBFunctions";
 
 export const StoreContext = createContext();
 const curUser = firebase.auth().currentUser;
@@ -38,6 +39,7 @@ const ContextAppProvider = (props) => {
         .onSnapshot((snap) => {
           setUserinfo(snap.data());
         });
+      user && presence()
   }, [user]);
  
   useEffect(() => {

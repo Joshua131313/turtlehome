@@ -44,7 +44,7 @@ export const getTimeAgo = (date, isActiveAgo) => {
       else if(seconds < 604800) //if less than 3 days
         return  `Active ${Math.floor(seconds / 86400)} day${addS(Math.floor(seconds / 86400))} ago`
       else 
-        return ''
+        return 'Last active: ' + convertClassicDate(date)
     }
     else {
       if(seconds < 1)

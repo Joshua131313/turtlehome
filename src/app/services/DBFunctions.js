@@ -27,11 +27,6 @@ export const createUserCollection = (userid, name, email, profilePic='', phoneNu
   })
 }
 
-export const handleUnload = () => {
-  const user = firebase.auth().currentUser
-
-  db.collection('users').doc(user.uid).set({lastActive: new Date()}, {merge: true})
-}
 
 export const loginwithProvider = (provider, history) => {
   provider.addScope('email');
@@ -323,4 +318,24 @@ export const createConvo = (userid, to, convoid, msg, navigate, type='text') => 
     sendMsg(userid, convoid, msg, type)
     navigate(`/chat/${convoid}`)
   })
+}
+export const presence = () => {
+  let uid = firebase.auth().currentUser.uid;
+  let userStatusDatabaseRef = firebase.database().ref('/status/' + uid);
+  let isOfflineForDatabase = {
+      state: 'offline',
+      last_changed: firebase.database.ServerValue.TIMESTAMP,
+  };
+  let isOnlineForDatabase = {
+      state: 'online',
+      last_changed: firebase.database.ServerValue.TIMESTAMP,
+  };
+  firebase.database().ref('.info/connected').on('value', function(snapshot) {
+      if (snapshot.val() == false) {
+          return;
+      };
+      userStatusDatabaseRef.onDisconnect().set(isOfflineForDatabase).then(function() {
+          userStatusDatabaseRef.set(isOnlineForDatabase);
+      });
+  });
 }

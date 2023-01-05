@@ -45,7 +45,13 @@ const FriendCard = props => {
         <div className={`${activeClassName} friendcard flexrow sb ac`}>
                 <AppUser userid={user[userKey]}>
                     {({userInfo})=> (
-                        <small className="activetimeago">{userInfo?.lastActive === 'Now' ? 'Active Now' : getTimeAgo(userInfo?.lastActive?.toDate(), true)}</small>
+                        <small className="activetimeago">
+                            {
+                                userInfo?.lastActive === 'online' ? 'Active Now' 
+                                : 
+                                getTimeAgo(typeof userInfo.lastActive !== 'string' && userInfo?.lastActive?.toDate(), true)
+                            }
+                        </small>
                     )} 
                 </AppUser>
                 <div className="flexrow gap-10">
